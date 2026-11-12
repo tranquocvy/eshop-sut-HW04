@@ -312,3 +312,95 @@ Mình đã hoàn thiện **phần hướng dẫn của `web-automation-testing`*
 
 Skill hiện ở local. Khi bắt đầu T01, ta sẽ dùng chính skill này để triển khai FR-14. Lượt chạy trên feature hoàn chỉnh sẽ kiểm chứng workflow và cung cấp nội dung cho video demo.
 ```
+
+Phạm vi: FR-14 T01. Xem danh mục, kiểm quyền truy cập và nghiệm thu.
+
+<a id="msg-2cae172b009c733765c2"></a>
+
+## P-007
+
+- Timestamp: 14:56:46 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+hãy thực thi T01: **1. Pilot FR-14T01** Xem danh mục và kiểm quyền truy cập. **T02** Thêm danh mục và kiểm biên tên. **T03** Xóa danh mục và kiểm trạng thái sau reload.T01 dựng cấu hình Playwright và kiểm HTML report thật. Cuối phase, đủ 12 ca FR-14 trên 3 browser và có workflow đã chạy để hoàn thiện Agent Skill.  
+```
+
+<a id="msg-1ecf0264e5f63a7265fa"></a>
+
+### Output
+
+#### Phản hồi 1 — 14:56:50 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng `web-automation-testing` để triển khai T01, gồm các ca xem danh mục và kiểm quyền truy cập. Mình sẽ chạy nhóm ca này trên ba browser và kiểm HTML report trước khi bàn giao để bạn review.
+```
+
+<a id="msg-5c82c68f6994a9cc3dca"></a>
+
+#### Phản hồi 2 — 14:58:13 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+T01 gồm sáu ca `CAT-TC01–03`, `CAT-TC13–14` và `CAT-TC33`. Mình sẽ chạy bản SUT ở thư mục runtime riêng để tạo fixture 0, 1 và 3 danh mục. Với `CAT-TC33`, oracle vẫn là quyền truy cập theo FR-12, kể cả khi UI có biểu hiện khác với luồng đăng nhập thông thường.
+```
+
+<a id="msg-9e46d425d7f0032364d4"></a>
+
+#### Phản hồi 3 — 15:00:48 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Pilot Chromium đã pass ca danh sách rỗng. Lượt Chromium đủ sáu ca tái hiện `CAT-TC33`: phiên user thường vẫn mở được màn hình quản lý danh mục. Lượt Firefox cũng cho thấy một assertion của runner đang chặn kiểm tra UI sau reload. Mình sẽ giữ báo cáo đầu và kiểm nguyên nhân trước khi chạy lại.
+```
+
+<a id="msg-57608094d5ba6b9a7c95"></a>
+
+#### Phản hồi 4 — 15:02:25 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Lượt chạy lại đã cho kết quả nhất quán trên cả ba browser: 5 pass và 1 fail mỗi browser. Firefox và WebKit trả `304 Not Modified` khi reload, nên mình đã sửa runner để tiếp tục kiểm dữ liệu hiển thị trên UI. `CAT-TC33` vẫn fail trên cả ba browser và có ảnh chụp sau reload. Mình cũng đã mở cả ba HTML report để xác minh MSSV, ISO timestamp và sáu ID ca.
+```
+
+<a id="msg-1e97bae403afc2aeffe4"></a>
+
+#### Phản hồi 5 — 15:03:31 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+**T01 đã chạy xong và sẵn sàng để bạn nghiệm thu.** Mình đã chuyển 6 ca xem danh mục và kiểm quyền truy cập từ HW02 sang Playwright Test với dữ liệu JSON. Tổng cộng **18 lượt thực thi, 15 pass và 3 fail**.
+
+| Browser | Pass | Fail | HTML report |
+| --- | ---: | ---: | --- |
+| Chromium | 5 | 1 | [Mở report](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr14/t01/chromium/20261112T0801142871371Z/index.html) |
+| Firefox | 5 | 1 | [Mở report](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr14/t01/firefox/20261112T0801197026914Z/index.html) |
+| WebKit | 5 | 1 | [Mở report](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr14/t01/webkit/20261112T0801431664819Z/index.html) |
+
+Cả ba lượt đều tái hiện cùng một lỗi **CAT-TC33**. Khi Web Admin khôi phục phiên bằng JWT hợp lệ của user thường, user vẫn mở được màn hình quản lý danh mục và thấy nút **Thêm mới**, kể cả sau reload. Mỗi report có ảnh chụp và quan sát trước–sau. Mình đã mở cả ba report để kiểm `Run by: 23120410`, ISO timestamp và đủ sáu ID ca.
+
+Điểm cần review trong script AI là cách xử lý **HTTP 304 sau reload**. Bản đầu coi `304` là lỗi tải danh mục trên Firefox và WebKit. Bản sửa chấp nhận revalidation rồi vẫn kiểm số dòng và từng cặp ID/tên trên UI. Các report đầu được giữ để đối chiếu. [Script T01](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/automation/tests/fr14-t01.spec.mjs) · [Báo cáo và bằng chứng](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md)
+
+T01 đã phủ **6/12 ca FR-14**. Sáu ca thêm và xóa thuộc T02–T03. Kết quả hiện ở local, chờ bạn review trước khi chốt audit T01 và commit.
+```
+
+<a id="msg-4549a23b70d7fa1ea73d"></a>
+
+## P-008
+
+- Timestamp: 15:10:00 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+tôi đã review. chốt T01
+```

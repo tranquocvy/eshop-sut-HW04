@@ -16,17 +16,19 @@
 | Công cụ | Công việc hoặc giai đoạn có AI hỗ trợ | Phần sinh viên rà soát, chỉnh sửa hoặc xác minh |
 | --- | --- | --- |
 | OpenAI Codex | Đối chiếu đề, đề xuất cách chia phase/task và soạn Agent Skill cho automation web. | Sinh viên yêu cầu kiểm lại quy định về sinh script và xác minh việc dùng Playwright ở HW02. Sinh viên yêu cầu hoàn thiện hướng dẫn skill trước khi triển khai task. |
+| OpenAI Codex | Chuyển sáu ca FR-14 T01 sang Playwright Test, chạy trên ba browser, sửa assertion sau lượt đầu và tổng hợp bằng chứng. | Sinh viên xác nhận đã review và chốt T01. [Xác nhận nghiệm thu](PromptLog.md#p-008). |
 
 <!-- Điền theo công việc đã thực hiện. Dẫn mã prompt liên quan và nêu rõ phần sinh viên đã tự sửa. -->
 
 ## 2. Bảng Audit theo artifact
 
-Verdict và thống kê dưới đây là đề xuất của Codex để sinh viên rà soát. Verdict đánh giá output ban đầu của từng artifact.
+Verdict đánh giá output ban đầu của từng artifact. Codex đề xuất các verdict dưới đây. Phạm vi sinh viên xác nhận được ghi theo từng artifact.
 
 | (1) Prompt + Công cụ | (2) Output AI | (3) Verdict | (4) Lý do | (5) Bản SV sửa |
 | --- | --- | --- | --- | --- |
 | A-01 — Brainstorm phạm vi và kế hoạch HW04. OpenAI Codex, 12/11/2026. [P-000](PromptLog.md#p-000), [P-003](PromptLog.md#p-003), [P-004](PromptLog.md#p-004), [P-005](PromptLog.md#p-005). | Phương án dùng lại ca web HW02, chọn Playwright Test, triển khai FR-14 trước rồi FR-02 và FR-07. [Kế hoạch chia task](PromptLog.md#p-005). | **INCOMPLETE** | Phương án ban đầu bám §5–6 về phạm vi, dữ liệu và browser nhưng còn thiếu bước kiểm kê runner Playwright HW02 để xác định thao tác, assertion và fixture có thể dùng lại. Sinh viên nêu điểm này ở P-004. | Sinh viên nhắc kiểm tra runner HW02 và đề xuất nghiệm thu, ghi audit theo từng task. Codex cập nhật phương án từ các yêu cầu đó. |
 | A-02 — Agent Skill `web-automation-testing`. OpenAI Codex, 12/11/2026. [P-001](PromptLog.md#p-001), [P-002](PromptLog.md#p-002), [P-006](PromptLog.md#p-006). | [Bàn giao bản đầu](PromptLog.md#p-002) và [SKILL.md hiện hành](../skills/web-automation-testing/SKILL.md). | **INCOMPLETE** | §7 nêu cả sinh và bảo trì script data-driven trên nhiều browser. Bản đầu đề cập bảo trì trong một dòng. Bản chỉnh sửa bổ sung cách xác định phần bị ảnh hưởng, giữ ID ca, kiểm coverage và xác minh bằng lượt chạy mới. | Sinh viên yêu cầu đối chiếu đề gốc và hoàn thiện skill trước các task. Codex bổ sung đầu ra theo bước và quy trình bảo trì. |
+| A-03 — FR-14 T01. OpenAI Codex, 12/11/2026. [P-007](PromptLog.md#p-007), [P-008](PromptLog.md#p-008). | [Script T01](../automation/tests/fr14-t01.spec.mjs), [test data](../automation/data/fr14-t01.json) và [kết quả đa browser](../Report.md#4-kết-quả-thực-thi-trên-nhiều-browser). | **INCOMPLETE** | Bản chạy đầu coi phản hồi HTTP 304 sau reload là lỗi tải dữ liệu. Firefox và WebKit vì vậy dừng trước assertion UI của CAT-TC01–03. | Codex sửa assertion để xử lý revalidation rồi vẫn đối chiếu số dòng và từng cặp ID/tên trên UI. Sinh viên xác nhận đã review và chốt T01. |
 
 ### A-01 — Brainstorm phạm vi và kế hoạch
 
@@ -36,14 +38,18 @@ AI đề xuất một skill dùng chung và FR-14 làm feature đầu tiên. Sau
 
 Bản đầu mô tả cách chọn ca, lưu CSV/JSON, tạo và review test, chạy trên ba browser và lưu HTML report. Phần bảo trì ban đầu nằm trong một dòng ở mục thực thi. Sau khi đối chiếu §7, AI tách phần này thành quy trình xác định nguyên nhân, giữ ID ca, cập nhật dữ liệu hoặc script và chạy lại phạm vi bị ảnh hưởng. AI cũng bổ sung bước đối chiếu ID ca với test runner phát hiện và kiểm coverage theo browser. Phiên này đã kiểm cấu trúc file. Bằng chứng workflow và video demo sẽ lấy từ lượt chạy FR-14. [Đối chiếu bản hoàn thiện](PromptLog.md#p-006).
 
+### A-03 — FR-14 T01
+
+Codex dùng Agent Skill để chuyển sáu ca HW02 thành test data JSON và script Playwright. Báo cáo giữ lượt chạy đầu và lượt chạy lại sau sửa assertion HTTP. Lượt dùng để tổng hợp có 15 pass và 3 fail trên 18 lượt thực thi. Cả ba fail tái hiện cùng lỗi CAT-TC33. Sinh viên xác nhận đã review và chốt kết quả T01 ở P-008. [Bằng chứng T01](../Report.md#4-kết-quả-thực-thi-trên-nhiều-browser) · [Xác nhận nghiệm thu](PromptLog.md#p-008).
+
 ## 3. Tổng kết độ chính xác AI
 
 | Chỉ số theo verdict đề xuất | Số lượng | Tỉ lệ |
 | --- | ---: | ---: |
-| Tổng artifact có verdict đề xuất | 2 | 100% |
+| Tổng artifact có verdict đề xuất | 3 | 100% |
 | VALID | 0 | 0% |
 | INVALID | 0 | 0% |
-| INCOMPLETE | 2 | 100% |
+| INCOMPLETE | 3 | 100% |
 
 ## 4. Kết luận
 

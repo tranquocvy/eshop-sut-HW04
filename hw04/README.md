@@ -41,7 +41,7 @@ Số feature trong phạm vi: **3**.
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | FR-02 | | | | | | |
 | FR-07 | | | | | | |
-| FR-14 | | | | | | |
+| FR-14 (T01) | 6 | 18 | 15 | 3 | 3 | 1 |
 | **Tổng** | | | | | | |
 
 <!-- Đếm test case tự động hóa theo ID duy nhất. Thống kê lượt thực thi, pass và fail theo các HTML report được dùng để tổng hợp. Ghi cách xử lý retry, skip và blocked nếu phát sinh. -->

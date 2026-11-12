@@ -1,0 +1,7 @@
+{
+  "name": "eshop-hw04-automation",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "playwright test" },
+  "devDependencies": { "@playwright/test": "1.65.0" }
+}
