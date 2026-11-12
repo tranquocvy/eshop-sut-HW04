@@ -103,6 +103,8 @@ T01 phát hiện đủ sáu ID trên mỗi project. Kết quả nghiệm thu k�
 
 ### CAT-TC05 — Web Admin lưu danh mục tên rỗng
 
+- [GitHub Issue #1](https://github.com/tranquocvy/eshop-sut-HW04/issues/1) · [Ảnh chụp trang issue](reports/fr14/phase-1/github-issues/HW04-issue-01-CAT-TC05.png)
+
 - **Expected theo FR-14.** Tên danh mục bắt buộc. Submit tên rỗng phải bị từ chối và danh sách danh mục giữ nguyên.
 - **Cách tái hiện.** Đăng nhập Web Admin, mở **Danh mục**, để trống ô **Tên danh mục mới**, bấm **Thêm mới** và reload.
 - **Actual.** Request thêm trả HTTP 200. Một dòng danh mục tên rỗng xuất hiện và vẫn tồn tại sau reload trên cả ba browser.
@@ -110,12 +112,13 @@ T01 phát hiện đủ sáu ID trên mỗi project. Kết quả nghiệm thu k�
 
 ### CAT-TC33 — User thường truy cập được màn hình quản lý danh mục khi khôi phục phiên Web Admin
 
+- [GitHub Issue #2](https://github.com/tranquocvy/eshop-sut-HW04/issues/2) · [Ảnh chụp trang issue](reports/fr14/phase-1/github-issues/HW04-issue-02-CAT-TC33.png)
+
 - **Expected theo FR-12.** Phiên user thường bị từ chối truy cập màn hình và thao tác quản lý danh mục.
 - **Cách tái hiện.** Đăng nhập lấy JWT hợp lệ của user thường, lưu vào `adminToken` trong phiên Web Admin riêng, mở lại trang và chọn **Danh mục**. Lặp quan sát sau reload.
 - **Actual.** Menu **Danh mục**, heading **Quản lý Danh mục** và nút **Thêm mới** đều hiển thị trước và sau reload trên Chromium, Firefox và WebKit. Tập danh mục giữ nguyên trong lần kiểm quyền này.
 - **Bằng chứng sau reload.** [Chromium](reports/fr14/phase-1/chromium/20261112T0817472147505Z/data/a58151896d862e839ae0273a293e67f2d2c1ebc7.png) · [Firefox](reports/fr14/phase-1/firefox/20261112T0817575329174Z/data/34a079ecc531f00b015891542f2f391dfd917319.png) · [WebKit](reports/fr14/phase-1/webkit/20261112T0818434836706Z/data/12cab9dcd32e8800d084c84710a9d90074dfedbb.png)
 
-<!-- Ghi defect có căn cứ từ lần chạy, gồm ID ca, browser, expected, actual và link GitHub Issue có screenshot. Nếu phát hiện bug, bổ sung bug report để nộp. -->
 
 ## 6. Hồ sơ AI và demo
 
