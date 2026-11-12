@@ -1,0 +1,6 @@
+[
+  {"id":"CAT-TC04","name":"Đồ học tập T03","expected":"accept","names":["T03 Mot","T03 Hai","T03 Ba"]},
+  {"id":"CAT-TC05","name":"","expected":"reject","names":["T03 Mot","T03 Hai","T03 Ba"]},
+  {"id":"CAT-TC06","name":"A","expected":"accept","names":["T03 Mot","T03 Hai","T03 Ba"]},
+  {"id":"CAT-TC07","name":"AB","expected":"accept","names":["T03 Mot","T03 Hai","T03 Ba"]}
+]
