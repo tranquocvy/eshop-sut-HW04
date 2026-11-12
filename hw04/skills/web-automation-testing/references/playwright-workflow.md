@@ -16,6 +16,8 @@ node (Join-Path $skillDir 'scripts/check-discovery.mjs') data/feature.json disco
 
 Script kiểm ID thiếu, ID trùng và test ngoài danh sách dữ liệu ở từng project được chỉ định. `--list` chỉ xác minh bước thu thập test. Kết quả thực thi và coverage thực tế lấy từ lượt chạy suite. [Script kiểm discovery](../scripts/check-discovery.mjs) · [Playwright CLI](https://playwright.dev/docs/test-cli) · [Playwright JSON reporter](https://playwright.dev/docs/test-reporters#json-reporter)
 
+Khi tách helper dùng chung, chạy lại cả các spec đã có để kiểm những đường thực thi mà bước thu thập test chưa chạm tới. Với ca kiểm persistence, nếu browser trả HTTP 304 sau reload, tiếp tục đối chiếu dữ liệu UI với expected của ca. Giữ report trước sửa để phân biệt lỗi script với hành vi của SUT.
+
 ## Chạy và tạo HTML report
 
 Chạy một cặp feature và browser mỗi lượt khi rubric cần report riêng. Chọn thư mục report mới và tạo timestamp tại thời điểm bắt đầu chạy. Ví dụ PowerShell cho một project đã có trong config.
