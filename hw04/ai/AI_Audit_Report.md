@@ -17,6 +17,7 @@
 | --- | --- | --- |
 | OpenAI Codex | Đối chiếu đề, đề xuất cách chia phase/task và soạn Agent Skill cho automation web. | Sinh viên yêu cầu kiểm lại quy định về sinh script và xác minh việc dùng Playwright ở HW02. Sinh viên yêu cầu hoàn thiện hướng dẫn skill trước khi triển khai task. |
 | OpenAI Codex | Chuyển sáu ca FR-14 T01 sang Playwright Test, chạy trên ba browser, sửa assertion sau lượt đầu và tổng hợp bằng chứng. | Sinh viên xác nhận đã review và chốt T01. [Xác nhận nghiệm thu](PromptLog.md#p-008). |
+| OpenAI Codex | Tự động hóa T02–T03 từ bộ ca HW02, tách helper dùng chung, chạy tích hợp Phase 1 và tổng hợp HTML report. | Sinh viên xem report Phase 1, đối chiếu với phạm vi HW02 và xác nhận thấy kết quả ổn. [Phản hồi về report](PromptLog.md#p-013). |
 
 <!-- Điền theo công việc đã thực hiện. Dẫn mã prompt liên quan và nêu rõ phần sinh viên đã tự sửa. -->
 
@@ -29,6 +30,7 @@ Verdict đánh giá output ban đầu của từng artifact. Codex đề xuất 
 | A-01 — Brainstorm phạm vi và kế hoạch HW04. OpenAI Codex, 12/11/2026. [P-000](PromptLog.md#p-000), [P-003](PromptLog.md#p-003), [P-004](PromptLog.md#p-004), [P-005](PromptLog.md#p-005). | Phương án dùng lại ca web HW02, chọn Playwright Test, triển khai FR-14 trước rồi FR-02 và FR-07. [Kế hoạch chia task](PromptLog.md#p-005). | **INCOMPLETE** | Phương án ban đầu bám §5–6 về phạm vi, dữ liệu và browser nhưng còn thiếu bước kiểm kê runner Playwright HW02 để xác định thao tác, assertion và fixture có thể dùng lại. Sinh viên nêu điểm này ở P-004. | Sinh viên nhắc kiểm tra runner HW02 và đề xuất nghiệm thu, ghi audit theo từng task. Codex cập nhật phương án từ các yêu cầu đó. |
 | A-02 — Agent Skill `web-automation-testing`. OpenAI Codex, 12/11/2026. [P-001](PromptLog.md#p-001), [P-002](PromptLog.md#p-002), [P-006](PromptLog.md#p-006). | [Bàn giao bản đầu](PromptLog.md#p-002) và [SKILL.md hiện hành](../skills/web-automation-testing/SKILL.md). | **INCOMPLETE** | §7 nêu cả sinh và bảo trì script data-driven trên nhiều browser. Bản đầu đề cập bảo trì trong một dòng. Bản chỉnh sửa bổ sung cách xác định phần bị ảnh hưởng, giữ ID ca, kiểm coverage và xác minh bằng lượt chạy mới. | Sinh viên yêu cầu đối chiếu đề gốc và hoàn thiện skill trước các task. Codex bổ sung đầu ra theo bước và quy trình bảo trì. |
 | A-03 — FR-14 T01. OpenAI Codex, 12/11/2026. [P-007](PromptLog.md#p-007), [P-008](PromptLog.md#p-008). | [Script T01](../automation/tests/fr14-t01.spec.mjs), [test data](../automation/data/fr14-t01.json) và [kết quả đa browser](../Report.md#4-kết-quả-thực-thi-trên-nhiều-browser). | **INCOMPLETE** | Bản chạy đầu coi phản hồi HTTP 304 sau reload là lỗi tải dữ liệu. Firefox và WebKit vì vậy dừng trước assertion UI của CAT-TC01–03. | Codex sửa assertion để xử lý revalidation rồi vẫn đối chiếu số dòng và từng cặp ID/tên trên UI. Sinh viên xác nhận đã review và chốt T01. |
+| A-04 — Bộ automation tích hợp FR-14 Phase 1. OpenAI Codex, 12/11/2026. [P-010](PromptLog.md#p-010), [P-013](PromptLog.md#p-013). | [Script T02](../automation/tests/fr14-t02.spec.mjs), [script T03](../automation/tests/fr14-t03.spec.mjs) và [kết quả lần chạy đầu và lần chạy lại](../Report.md#phase-1--fr-14). | **INCOMPLETE** | Bản tích hợp đầu phát hiện đủ 12 ID mỗi browser nhưng thiếu import `credentials` sau khi tách helper. CAT-TC14 và CAT-TC33 dừng do `ReferenceError` trước khi kiểm quyền. | Codex bổ sung export/import và chạy lại đủ 12 ca trên ba browser. Sinh viên đã xem và đồng ý với report. Chưa ghi nhận chỉnh sửa script do sinh viên thực hiện ở lượt này. |
 
 ### A-01 — Brainstorm phạm vi và kế hoạch
 
@@ -42,14 +44,18 @@ Bản đầu mô tả cách chọn ca, lưu CSV/JSON, tạo và review test, ch�
 
 Codex dùng Agent Skill để chuyển sáu ca HW02 thành test data JSON và script Playwright. Báo cáo giữ lượt chạy đầu và lượt chạy lại sau sửa assertion HTTP. Lượt dùng để tổng hợp có 15 pass và 3 fail trên 18 lượt thực thi. Cả ba fail tái hiện cùng lỗi CAT-TC33. Sinh viên xác nhận đã review và chốt kết quả T01 ở P-008. [Bằng chứng T01](../Report.md#4-kết-quả-thực-thi-trên-nhiều-browser) · [Xác nhận nghiệm thu](PromptLog.md#p-008).
 
+### A-04 — T02, T03 và lượt chạy tích hợp FR-14
+
+T02 dùng bốn ca HW02 để kiểm thêm danh mục và biên độ dài tên. T03 dùng hai ca HW02 để kiểm xóa đúng dòng và trạng thái sau reload. Bước discovery chỉ xác nhận ID nên lỗi thiếu import chỉ lộ khi chạy thân test. Sau khi Codex sửa lỗi đó, mỗi browser ghi nhận 10 pass và 2 fail. Hai fail là CAT-TC05 (lưu được tên rỗng) và CAT-TC33 (user thường mở được màn hình danh mục). Lượt chạy đầu được giữ riêng để phân biệt lỗi script với defect SUT. [Test data T02](../automation/data/fr14-t02.json) · [Test data T03](../automation/data/fr14-t03.json) · [Báo cáo FR-14](../Report.md#phase-1--fr-14).
+
 ## 3. Tổng kết độ chính xác AI
 
 | Chỉ số theo verdict đề xuất | Số lượng | Tỉ lệ |
 | --- | ---: | ---: |
-| Tổng artifact có verdict đề xuất | 3 | 100% |
+| Tổng artifact có verdict đề xuất | 4 | 100% |
 | VALID | 0 | 0% |
 | INVALID | 0 | 0% |
-| INCOMPLETE | 3 | 100% |
+| INCOMPLETE | 4 | 100% |
 
 ## 4. Kết luận
 

@@ -404,3 +404,236 @@ T01 đã phủ **6/12 ca FR-14**. Sáu ca thêm và xóa thuộc T02–T03. Kế
 ```text
 tôi đã review. chốt T01
 ```
+
+Phạm vi: FR-14 Phase 1: phạm vi, triển khai T02–T03, chạy tích hợp, kiểm report và yêu cầu chốt local
+
+<a id="msg-96cfc359836073b79653"></a>
+
+## P-009
+
+- Timestamp: 15:12:26 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+ủa không đủ 12 ca à. do FR không  đủ số ca hã? có đảm bảo đủ min 36 ca ở toàn bộ bài không vậy
+```
+
+<a id="msg-566b1a2144467851792c"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:12:30 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ đối chiếu bộ ca HW02 cho cả ba feature để xác nhận mốc 12 ca web mỗi feature và tiến độ thực tế của HW04.
+```
+
+<a id="msg-1884c60d872414498681"></a>
+
+#### Phản hồi 2 — 15:12:54 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+**Đủ ca để đạt mốc 36.** FR-14 có **12 ca web đã chọn**, trong đó **T01 mới chạy 6 ca** xem danh mục và kiểm quyền truy cập. Sáu ca còn lại thuộc **T02** (4 ca thêm và kiểm biên tên) và **T03** (2 ca xóa). [Bảng 12 ca FR-14](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md:27)
+
+| Feature | Ca web trong bộ HW02 | Mục tiêu HW04 | Đã tự động hóa và chạy |
+| --- | ---: | ---: | ---: |
+| FR-14 — Quản lý danh mục | 12 | 12 | 6 |
+| FR-02 — Đăng nhập và khóa tài khoản | 19 | 12 | 0 |
+| FR-07 — Giỏ hàng | 34 | 12 | 0 |
+| **Tổng** | **65** | **36** | **6** |
+
+Vậy **nguồn ca đã đủ cho cả ba feature**. Để đạt rubric, ta còn phải tự động hóa và chạy **30 ca** trên cả ba browser. **18 lượt T01 là 6 ca × 3 browser**, và `CAT-TC33` vẫn được tính là một ca đã tự động hóa dù kết quả là Fail. [Rubric HW04](D:/Workspace/SoftwareTesting/HW04/rubric_vn.md:63)
+```
+
+<a id="msg-b59a9fb994a8adee092f"></a>
+
+## P-010
+
+- Timestamp: 15:14:28 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+à lúc nãy tôi kêu bạn implement sai mất rồi, đừng push commit nhé, ta sẽ làm theo phase luôn:
+
+
+
+Mình đề xuất chia việc theo **hành vi kiểm thử**, để mỗi task có script và kết quả riêng để nghiệm thu.
+
+| Phase              | Task                                                                                                                                     | Nghiệm thu                                                                                                                                         |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Pilot FR-14** | **T01** Xem danh mục và kiểm quyền truy cập. **T02** Thêm danh mục và kiểm biên tên. **T03** Xóa danh mục và kiểm trạng thái sau reload. | T01 dựng cấu hình Playwright và kiểm HTML report thật. Cuối phase, đủ 12 ca FR-14 trên 3 browser và có workflow đã chạy để hoàn thiện Agent Skill. |
+
+```
+
+<a id="msg-ec2e120bb1eaebac1bd9"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:14:33 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ giữ kết quả T01, triển khai tiếp T02 và T03, rồi dùng `web-automation-testing` để chạy đủ 12 ca FR-14 trên cả ba browser. Toàn bộ phase sẽ ở local để bạn nghiệm thu cùng lúc.
+```
+
+<a id="msg-b160b5cd3880a6c81260"></a>
+
+#### Phản hồi 2 — 15:16:56 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Playwright đã phát hiện đủ 12 ID trên mỗi browser. Lượt đầu cho thấy một lỗi trong phần tách helper: hai ca quyền truy cập T01 thiếu hàm lấy thông tin đăng nhập. Chromium cũng ghi nhận `CAT-TC05` tạo được danh mục tên rỗng. Mình sẽ giữ bằng chứng lượt đầu, sửa lỗi helper và chạy lại đủ phase.
+```
+
+<a id="msg-f9bc56124d8511b89d98"></a>
+
+#### Phản hồi 3 — 15:19:25 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Lượt chạy lại đã hoàn tất đủ 36 lượt thực thi. Mỗi browser có 10 pass và 2 fail, cùng tái hiện lỗi tên rỗng `CAT-TC05` và lỗi quyền truy cập `CAT-TC33`. Cả ba HTML report đã mở được và hiển thị đủ 12 ID, MSSV cùng ISO timestamp.
+```
+
+<a id="msg-6a8017fc4a1a961edf30"></a>
+
+#### Phản hồi 4 — 15:20:19 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+**Phase 1 FR-14 đã chạy đủ 12 ca trên Chromium, Firefox và WebKit**, sẵn sàng để bạn nghiệm thu theo phase. Tổng cộng **36 lượt thực thi, 30 pass và 6 fail**.
+
+| Task | Số ca | Kết quả trên mỗi browser |
+| --- | ---: | --- |
+| T01 — Xem danh mục và kiểm quyền truy cập | 6 | 5 pass, 1 fail |
+| T02 — Thêm danh mục và kiểm biên tên | 4 | 3 pass, 1 fail |
+| T03 — Xóa danh mục và kiểm sau reload | 2 | 2 pass, 0 fail |
+
+Cả ba browser tái hiện hai lỗi SUT. **`CAT-TC05`** cho phép lưu danh mục tên rỗng và vẫn hiển thị sau reload. **`CAT-TC33`** cho phép user thường vào màn hình quản lý danh mục khi khôi phục phiên Web Admin. Lượt chạy đầu cũng phát hiện lỗi thiếu import khi tách helper. Mình đã sửa và chạy lại cả phase, đồng thời giữ report đầu để đối chiếu. [Báo cáo và ảnh bằng chứng](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md)
+
+Ba HTML report đã được mở và kiểm đủ 12 ID, `Run by: 23120410` và ISO timestamp. Kết quả này dùng được để quay demo Agent Skill. [Chromium](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr14/phase-1/chromium/20261112T0817472147505Z/index.html) · [Firefox](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr14/phase-1/firefox/20261112T0817575329174Z/index.html) · [WebKit](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr14/phase-1/webkit/20261112T0818434836706Z/index.html)
+
+Toàn bộ thay đổi của phase đang ở local để bạn review, **chưa commit thêm hay push**.
+```
+
+<a id="msg-e06dfe5908415e1445f8"></a>
+
+## P-011
+
+- Timestamp: 15:46:51 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+web kit là gì nhỉ, và 3 platform đều chạy thật trên platform đúng không? chorime firefox... ??
+```
+
+<a id="msg-4559baf4a1999e84dde3"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:46:53 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ đối chiếu cấu hình Playwright và report Phase 1 để nói rõ ba lượt chạy dùng trình duyệt nào.
+```
+
+<a id="msg-8877b11bde31f85219fa"></a>
+
+#### Phản hồi 2 — 15:47:10 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đúng, **Phase 1 đã chạy thật trên 3 browser build của Playwright**, tất cả trên cùng máy Windows. Mỗi browser tự mở EShop và chạy đủ 12 test case.
+
+| Browser đã chạy | Hiểu đơn giản |
+|---|---|
+| **Chromium** | Bản mã nguồn mở mà Google Chrome dựa trên. Lượt này dùng Chromium đi kèm Playwright. |
+| **Firefox** | Bản Firefox được Playwright điều chỉnh để hỗ trợ automation. |
+| **WebKit** | Engine xử lý và hiển thị trang web mà Apple Safari sử dụng. Lượt này chạy WebKit của Playwright trên Windows; Safari trên macOS hoặc iPhone chưa được kiểm thử. |
+
+Playwright chạy ở chế độ **headless**, tức là browser chạy thật nhưng không hiện cửa sổ. [Tài liệu Playwright về browser](https://playwright.dev/docs/browsers#configure-browsers)
+
+Trong bài nộp, mình ghi **“12 ca FR-14 × 3 browser (Chromium, Firefox, WebKit) = 36 lượt chạy”**. [Report Phase 1](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md:82) có HTML report riêng cho từng browser.
+```
+
+<a id="msg-2b9f9e994e6b3bf7f5c0"></a>
+
+## P-012
+
+- Timestamp: 15:50:41 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+ồ, tức là playwright đã có chạy thật bằng browser mà playwirght tự host nhỉ?
+```
+
+<a id="msg-8f8bdd3dbd51540070b5"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:50:46 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đúng, Playwright **tự khởi chạy và điều khiển browser thật trên máy Windows**. Gọi là “tự khởi chạy” chính xác hơn “tự host”.
+
+Trong HW04, Playwright mở Chromium, Firefox và WebKit ở chế độ headless. Cấu hình test cũng tự khởi động EShop trên `localhost`, rồi từng browser truy cập EShop để chạy test. [Cấu hình Playwright](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/automation/playwright.config.mjs)
+```
+
+<a id="msg-dd4bde19c7fe1dc73f1c"></a>
+
+## P-013
+
+- Timestamp: 15:51:25 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+ò oke. Tôi có check qua report rồi, bản chất đều là các bài cũ đã làm ở HW02. Bạn check chưa có chỗ nào cần tôi review nữa không nhỉ, tôi thấy oke rồi
+```
+
+<a id="msg-df3480b3cab6fe92112d"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:51:28 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình dùng skill `hw04-automation-testing` để đối chiếu đề gốc, các ca HW02 và bằng chứng Phase 1, xem còn điểm nào cần bạn review trước khi chốt.
+```
+
+<a id="msg-48bbc9b32b40cf5b79d8"></a>
+
+#### Phản hồi 2 — 15:52:14 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+**Phần kết quả Phase 1 ổn.** Mình đối chiếu đủ 12 ID với bộ ca FR-14 của HW02. Phần mới của HW04 là chuyển các ca đó thành script Playwright đọc dữ liệu từ JSON, có đủ các kiểu assertion và chạy trên ba browser. Cả ba lượt đều ra **10 pass, 2 fail**, khớp với báo cáo. [Report Phase 1](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md:78)
+
+Nếu bạn mới xem report, còn **một phần cần bạn trực tiếp review trước khi chốt** là script do AI tạo. Mình đề xuất bắt đầu với đoạn xử lý reload. Bản đầu chỉ chấp nhận HTTP 2xx nên Firefox và WebKit có thể fail khi server trả `304 Not Modified`. Bản sửa chấp nhận `200` hoặc `304`, rồi vẫn kiểm số dòng và nội dung danh mục trên UI. Bạn có thể xem đoạn này và tự xác nhận assertion đó có giữ đúng expected của ca HW02 không. [Script đã sửa](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/automation/tests/fr14-support.mjs:54) · [Phân tích bản sửa](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md:72)
+
+Đề còn yêu cầu trong video bạn trình bày **ít nhất một chỉnh sửa script do chính bạn thực hiện**. Bản sửa `304` hiện do AI thực hiện, nên phần bạn xác nhận ở đây được ghi nhận là review. [Yêu cầu video](/D:/Workspace/SoftwareTesting/HW04/rubric_vn.md:72)
+```
