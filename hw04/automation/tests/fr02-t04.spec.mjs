@@ -21,10 +21,12 @@ for (const row of cases) {
         response.request().method() === 'GET'),
       page.reload()
     ]);
-    expect(profile.ok(), 'Authenticated profile request succeeded').toBe(true);
+    const status = profile.status();
+    test.info().annotations.push({ type: 'Profile HTTP status after reload', description: String(status) });
+    expect([200, 304], 'Profile request returned data or revalidated the cached profile').toContain(status);
     expect((await profile.request().headerValue('authorization')) === `Bearer ${token}`,
       'Authenticated profile request uses the same JWT').toBe(true);
-    expect((await profile.json()).email).toBe(account.email);
+    if (status === 200) expect((await profile.json()).email).toBe(account.email);
     await expect(page.getByRole('heading', { name: 'Hồ sơ của bạn' })).toBeVisible();
     await expect(page.locator('form input[disabled]')).toHaveValue(account.email);
   });

@@ -40,7 +40,9 @@ async function checkThreshold(page, account, row) {
   expect.soft(firstLock + 1, 'First wrong attempt that activates lockout').toBe(row.shouldLock ? row.expectedCounters.length : 0);
   if (!row.shouldLock) {
     await expectAccepted(page, await submitLogin(page, account.email, account.password));
-    expect(account.state(), 'Successful login resets consecutive failures and clears lock state')
+    await expect.poll(() => account.state(), {
+      timeout: 2000, message: 'A01: successful login clears persisted failures and lock state'
+    })
       .toEqual({ attempts: 0, deadline: null });
     return;
   }
@@ -66,7 +68,8 @@ async function checkFourthFailure(page, account, row) {
     await test.info().attach('State reached before blocked fourth attempt', {
       body: await page.screenshot(), contentType: 'image/png'
     });
-    throw new Error('Lockout precondition failed: the observed UI sequence did not reach the expected lock state.');
+    const observed = sequence.map(({ state }) => `${state.attempts} (deadline ${state.deadline})`).join(', ');
+    throw new Error(`Expected counters ${row.expectedCounters.join(', ')} and a ${row.lockMs} ms lock starting on the third attempt. Observed ${observed}. The fourth attempt was not sent.`);
   }
 
   await setTimeout(Math.max(0, third.receivedAt + row.offsetMs - Date.now()));

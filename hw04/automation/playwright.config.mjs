@@ -29,7 +29,7 @@ export default defineConfig({
   retries: 0,
   timeout: 30_000,
   forbidOnly: true,
-  use: { baseURL: frontend },
+  use: { baseURL: frontend, screenshot: useWeb ? 'only-on-failure' : 'off' },
   projects: ['chromium', 'firefox', 'webkit'].map(browserName => ({
     name: browserName,
     use: { browserName }

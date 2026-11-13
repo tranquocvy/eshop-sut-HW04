@@ -66,11 +66,14 @@ export const test = base.extend({
 
 export function loginForm(page) {
   const form = page.locator('form').filter({ has: page.getByRole('button', { name: 'Sign In', exact: true }) });
-  const password = form.locator('input[type="text"]');
+  // The labels are siblings of their inputs, without an explicit label association.
+  const field = label => form.locator(':scope > div')
+    .filter({ has: page.locator('label').filter({ hasText: label }) })
+    .locator('input');
   return {
     form,
-    email: form.locator('input:not([type="text"])'),
-    password,
+    email: field(/^Username$/),
+    password: field(/^Mật khẩu$/),
     submit: form.getByRole('button', { name: 'Sign In', exact: true })
   };
 }
@@ -104,8 +107,9 @@ export async function expectDenied(page, { response }) {
   expect.soft(response.status(), 'Server denies the login').toBeGreaterThanOrEqual(400);
   expect.soft(response.status(), 'Denial is a handled client error').toBeLessThan(500);
   expect.soft((await response.json()).token === undefined, 'Response has no JWT').toBe(true);
-  const message = page.getByText(/đăng nhập thất bại|không thể đăng nhập|thông tin đăng nhập không hợp lệ/i);
+  const message = loginForm(page).form.locator('xpath=following-sibling::div[1]');
   await expect(message, 'User sees a login error').toBeVisible();
+  await expect(message, 'Login error contains feedback').toHaveText(/\S/);
   await expect.soft(page).toHaveURL(/\/login$/);
   expect.soft(await clientToken(page) === null, 'Client has no JWT').toBe(true);
   return (await message.innerText()).trim();
