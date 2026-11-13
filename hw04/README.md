@@ -39,10 +39,10 @@ Số feature trong phạm vi: **3**.
 
 | Feature | Test case tự động hóa | Lượt thực thi test case | Pass | Fail | Lượt chạy browser | Bug |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| FR-02 | | | | | | |
+| FR-02 (Phase 2) | 14 | 42 | 24 | 18 | 3 | 3 |
 | FR-07 | | | | | | |
 | FR-14 (Phase 1) | 12 | 36 | 30 | 6 | 3 | 2 |
-| **Tổng** | | | | | | |
+| **Tổng các phase đã chạy** | **26** | **78** | **54** | **24** | **6** | **5** |
 
 <!-- Đếm test case tự động hóa theo ID duy nhất. Thống kê lượt thực thi, pass và fail theo các HTML report được dùng để tổng hợp. Ghi cách xử lý retry, skip và blocked nếu phát sinh. -->
 

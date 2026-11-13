@@ -18,7 +18,9 @@ Bài kiểm thử gồm ba feature web từ HW02. Expected result được đố
 
 ### FR-02 — Đăng nhập và khóa tài khoản
 
-<!-- Ghi các ca đã chọn, cách dùng AI qua từng bước, file dữ liệu, script và những ca chưa tự động hóa cùng lý do. -->
+14 ca Web từ HW02 được chuyển sang Playwright Test theo ba task. T04 kiểm đăng nhập đúng, JWT và hồ sơ. T05 kiểm credential sai và HTML5 validation. T06 kiểm bộ đếm, ngưỡng và thời hạn khóa, đăng nhập trong khóa và thử từ context mới. Các ca kiểm biên thời gian ở mức mili giây W13–W15, chuỗi reset W16 và ảnh hưởng sang tài khoản khác W17 nằm ngoài bộ đã chọn. [Mapping, expected và cách chạy lại](reports/fr02/phase-2/README.md)
+
+Mỗi test dùng context và tài khoản riêng trong bản runtime của SUT `85af3ba`. Các ca W04, W05 và W12 đi qua chuỗi đăng nhập sai trên Web. W11 và W18 bắt đầu với fixture đã khóa để kiểm hành vi trong khóa độc lập với lỗi kích hoạt khóa. Assertions bao gồm UI và điều hướng, DOM validity, request/JWT và trạng thái lưu trong SQLite. [T04](automation/tests/fr02-t04.spec.mjs) · [T05](automation/tests/fr02-t05.spec.mjs) · [T06](automation/tests/fr02-t06.spec.mjs)
 
 ### FR-07 — Giỏ hàng
 
@@ -72,6 +74,9 @@ T03 xóa theo đúng ID của danh mục giữa trong fixture ba dòng hoặc da
 | FR-14 / CAT-TC01–03 | Assertion ban đầu dùng điều kiện HTTP 2xx cho request danh mục sau reload. | Firefox và WebKit dùng revalidation và trả HTTP 304 cho dữ liệu danh mục giữ nguyên. | Chấp nhận 200 hoặc 304 ở request đọc, sau đó vẫn kiểm số dòng và tập ID/tên trên UI. Lượt chạy lại xác nhận cả ba ca pass trên cả ba browser. |
 | FR-14 / CAT-TC33 | Bản AI đầu gắn listener cho request danh mục sau khi nhận phản hồi request kiểm phiên. | Chuỗi request trên UI có thể tiến nhanh hơn thời điểm listener được gắn. | Gắn listener trước khi mở trang hoặc reload. Lượt chạy sau sửa thu được quan sát và ảnh ở cả hai thời điểm trên ba browser. |
 | FR-14 / CAT-TC14 và CAT-TC33 | Sau khi tách helper dùng chung, hai ca gọi hàm `credentials` chưa được import. | Playwright phát hiện đủ ID nhưng chưa thực thi thân test ở bước discovery. | Bổ sung export và import rồi chạy lại toàn bộ 12 ca trên ba browser. CAT-TC14 pass và CAT-TC33 ghi nhận lỗi quyền truy cập trên cả ba. |
+| FR-02 / helper đăng nhập | Lượt đầu dừng trước submit vì locator email khớp cả hai input. | Script suy ô mật khẩu dùng `type=password`, còn baseline dùng `type=text` cho hai ô. | Codex định vị theo vùng có nhãn và giữ assertion `type=email` ở W07. Pilot đã kiểm được luồng JWT/hồ sơ và ghi nhận lỗi thật ở W07, W12. |
+| FR-02 / W04, W12, W18 | W12 có thể skip khi các lần đăng nhập sai đã chạy và tạo sai trạng thái. W04/W18 thiếu kiểm trạng thái sau thao tác cuối. | Script dùng trạng thái khóa như tiền điều kiện để skip và chỉ kiểm kết quả đăng nhập ở hai điểm cuối. | Sinh viên đổi W12 thành Failed kèm screenshot và thêm assertion W04/W18 trong `c0cc5c9`. Codex bổ sung trạng thái thực tế vào lỗi W12 và chờ SQLite ghi thay đổi ở W04. |
+| FR-02 / W01 | Assertion HTTP 2xx dừng ca Firefox khi reload hồ sơ. | Firefox có thể revalidate dữ liệu hồ sơ và nhận HTTP 304. | Codex kiểm 200 hoặc 304, xác minh cùng Bearer token và email hồ sơ trên UI. Lượt chạy riêng W01 trên Firefox pass với HTTP 304. |
 
 ## 4. Kết quả thực thi trên nhiều browser
 
@@ -99,6 +104,10 @@ T01 phát hiện đủ sáu ID trên mỗi project. Kết quả nghiệm thu k�
 
 <!-- Dẫn HTML report thật trong reports/. Mỗi lượt chạy có Run by: 23120410 và ISO timestamp. Ghi rõ lỗi môi trường hoặc ca bị chặn nếu có. -->
 
+### Phase 2 — FR-02
+
+Kết quả cuối gồm 14 ID và 42 lượt thực thi trên Chromium, Firefox và WebKit, với 24 pass, 18 fail và 0 skipped. Sáu ca fail giống nhau trên cả ba browser. W12 ghi Failed kèm screenshot ở bước phát hiện chuỗi sai. Bước thử lần thứ tư chưa diễn ra do tài khoản khóa sớm. [Các HTML report cuối và lịch sử lần chạy](reports/fr02/phase-2/README.md#kết-quả-dùng-để-tổng-hợp)
+
 ## 5. Bug phát hiện
 
 ### CAT-TC05 — Web Admin lưu danh mục tên rỗng
@@ -119,6 +128,26 @@ T01 phát hiện đủ sáu ID trên mỗi project. Kết quả nghiệm thu k�
 - **Actual.** Menu **Danh mục**, heading **Quản lý Danh mục** và nút **Thêm mới** đều hiển thị trước và sau reload trên Chromium, Firefox và WebKit. Tập danh mục giữ nguyên trong lần kiểm quyền này.
 - **Bằng chứng sau reload.** [Chromium](reports/fr14/phase-1/chromium/20261112T0817472147505Z/data/a58151896d862e839ae0273a293e67f2d2c1ebc7.png) · [Firefox](reports/fr14/phase-1/firefox/20261112T0817575329174Z/data/34a079ecc531f00b015891542f2f391dfd917319.png) · [WebKit](reports/fr14/phase-1/webkit/20261112T0818434836706Z/data/12cab9dcd32e8800d084c84710a9d90074dfedbb.png)
 
+### FR02-BUG01 — Email sai định dạng vẫn gửi request đăng nhập
+
+- **Expected theo FR-02.** Ô email có `type=email`, browser chặn submit nếu định dạng không hợp lệ.
+- **Cách tái hiện.** Mở `/login`, điền `plainaddress` hoặc `a@` vào ô Username, điền mật khẩu và bấm **Sign In**.
+- **Actual.** Ô email có `type=text`, `validity.typeMismatch` là `false` và form gửi một `POST /api/login` trên mỗi browser. Quan sát từ W07 và W08.
+- **Ảnh W07.** [Chromium](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/data/55bc2d4ea74af68b24d1593b91d6878c8a2fb041.png) · [Firefox](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/data/58b7d5425b5a49d0ea2f376e0deea3d423ea6e5d.png) · [WebKit](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/data/7714b1f02b9b31d7320332f72bfabbc4f3e823ab.png)
+
+### FR02-BUG02 — Bộ đếm tăng hai và khóa tài khoản ở lần sai thứ hai
+
+- **Expected theo FR-02.** Mỗi lần nhập sai làm counter tăng một. Hai lần sai vẫn cho phép đăng nhập bằng mật khẩu đúng. Khóa bắt đầu ở lần sai thứ ba liên tiếp.
+- **Cách tái hiện.** Với tài khoản mới, thử sai mật khẩu một lần rồi kiểm counter. Thử sai lần hai, sau đó nhập mật khẩu đúng trong vòng 30 giây.
+- **Actual.** Counter đi `0 → 2 → 4`. Tài khoản đã khóa sau lần sai thứ hai và từ chối cả mật khẩu đúng. Quan sát từ W03, W04, W05 và W12 trên ba browser.
+- **Ảnh W12 kèm log chuỗi trong HTML report.** [Chromium](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/data/0047aef00eb13dd7e45b9d47ab0363335c6f429c.png) · [Firefox](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/data/beaf18a5188b45ad120a26aa4e651f8f4878b8ff.png) · [WebKit](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/data/2769cf880ad8de34b125ce5df1b9d3b057926b61.png)
+
+### FR02-BUG03 — Thời hạn khóa được đặt khoảng 180 giây
+
+- **Expected theo FR-02.** Thời hạn khóa demo là 30 giây kể từ lần đăng nhập sai kích hoạt khóa.
+- **Cách tái hiện.** Nhập sai mật khẩu liên tiếp qua Web với một tài khoản mới. Ghi thời điểm trước và sau request đầu tiên tạo `locked_until`, rồi đối chiếu deadline lưu trong SQLite.
+- **Actual.** W05 ghi khoảng 179.987–180.027 giây trên Chromium, 179.994–180.026 giây trên Firefox và 179.999–180.018 giây trên WebKit. Đây là thời hạn lưu được suy từ cửa sổ thời gian của request. Các ca biên thời điểm mở khóa W13–W15 nằm ngoài lượt chạy.
+- **Ảnh W05 và số đo trong HTML report.** [Chromium](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/data/efe47519206e697acf600c9c276bd7c419567aa5.png) · [Firefox](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/data/1256eb060ce67358382737177ca1751d466285a9.png) · [WebKit](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/data/cf87d62113e11be5dad18b4aa01308e8b7b301aa.png)
 
 ## 6. Hồ sơ AI và demo
 
