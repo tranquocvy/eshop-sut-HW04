@@ -19,6 +19,7 @@
 | OpenAI Codex | Chuyển sáu ca FR-14 T01 sang Playwright Test, chạy trên ba browser, sửa assertion sau lượt đầu và tổng hợp bằng chứng. | Sinh viên xác nhận đã review và chốt T01. [Xác nhận nghiệm thu](PromptLog.md#p-008). |
 | OpenAI Codex | Tự động hóa T02–T03 từ bộ ca HW02, tách helper dùng chung, chạy tích hợp Phase 1 và tổng hợp HTML report. | Sinh viên xem report Phase 1, đối chiếu với phạm vi HW02 và xác nhận thấy kết quả ổn. [Phản hồi về report](PromptLog.md#p-013). |
 | OpenAI Codex | Chuyển 14 ca Web FR-02 từ HW02 sang Playwright Test, chạy lần đầu, sửa script sau review, chạy pilot và đối chiếu ba browser. | Sinh viên review script và trực tiếp thêm kiểm trạng thái ở W04/W18, đổi W12 từ skip sang fail và giữ screenshot. Các chỉnh sửa nằm trong commit `c0cc5c9`. |
+| OpenAI Codex | Chuyển 15 ca Web FR-07 từ HW02, chạy pilot, sửa assertion và thu HTML report đa browser. | Chờ sinh viên rà soát Phase 3. |
 
 <!-- Điền theo công việc đã thực hiện. Dẫn mã prompt liên quan và nêu rõ phần sinh viên đã tự sửa. -->
 
@@ -33,6 +34,7 @@ Verdict đánh giá output ban đầu của từng artifact. Codex đề xuất 
 | A-03 — FR-14 T01. OpenAI Codex, 12/11/2026. [P-007](PromptLog.md#p-007), [P-008](PromptLog.md#p-008). | [Script T01](../automation/tests/fr14-t01.spec.mjs), [test data](../automation/data/fr14-t01.json) và [kết quả đa browser](../Report.md#4-kết-quả-thực-thi-trên-nhiều-browser). | **INCOMPLETE** | Bản chạy đầu coi phản hồi HTTP 304 sau reload là lỗi tải dữ liệu. Firefox và WebKit vì vậy dừng trước assertion UI của CAT-TC01–03. | Codex sửa assertion để xử lý revalidation rồi vẫn đối chiếu số dòng và từng cặp ID/tên trên UI. Sinh viên xác nhận đã review và chốt T01. |
 | A-04 — Bộ automation tích hợp FR-14 Phase 1. OpenAI Codex, 12/11/2026. [P-010](PromptLog.md#p-010), [P-013](PromptLog.md#p-013). | [Script T02](../automation/tests/fr14-t02.spec.mjs), [script T03](../automation/tests/fr14-t03.spec.mjs) và [kết quả lần chạy đầu và lần chạy lại](../Report.md#phase-1--fr-14). | **INCOMPLETE** | Bản tích hợp đầu phát hiện đủ 12 ID mỗi browser nhưng thiếu import `credentials` sau khi tách helper. CAT-TC14 và CAT-TC33 dừng do `ReferenceError` trước khi kiểm quyền. | Codex bổ sung export/import và chạy lại đủ 12 ca trên ba browser. Sinh viên đã xem và đồng ý với report. Chưa ghi nhận chỉnh sửa script do sinh viên thực hiện ở lượt này. |
 | A-05 — FR-02 Phase 2. OpenAI Codex, 12/11/2026. [P-014](PromptLog.md#p-014), [P-015](PromptLog.md#p-015). | 14 ca Web data-driven. Bản AI gốc ở commit `8f1a6d0`. [Report và mapping](../reports/fr02/phase-2/README.md). | **INCOMPLETE** | Locator dựa vào `type=password` làm 42 lượt đầu dừng trước khi gửi request. W12 gọi `test.skip()` khi chuỗi thao tác thật tạo sai trạng thái theo FR-02. | Sinh viên sửa W12 thành fail có screenshot, bổ sung assertion W04 và W18 trong `c0cc5c9`. Codex sửa locator theo vùng nhãn và xác minh bằng pilot rồi chạy đủ ba browser. |
+| A-06 — FR-07 Phase 3. OpenAI Codex, 13/11/2026. [P-016](PromptLog.md#p-016). | 15 ca Web data-driven cho T07–T09. [Mapping, pilot và HTML report](../reports/fr07/phase-3/README.md). | **INCOMPLETE** | Pilot W19 ghi nhận số dòng sai trước khi chạy assertion xác nhận xóa. T08 dừng ngay ở control bị thiếu. W23 đọc thuộc tính nội bộ của Playwright để lấy baseURL. | Codex sửa thứ tự assertion, kiểm giỏ không đổi khi thiếu control, dùng origin từ URL trang và bổ sung ảnh đúng thời điểm quan sát. |
 
 ### A-01 — Brainstorm phạm vi và kế hoạch
 
@@ -56,14 +58,20 @@ Bản AI đầu ghi 42 lỗi locator trước khi submit. Sinh viên phát hiệ
 
 Sau pilot, lượt đa browser phát hiện W01 trên Firefox dừng tại assertion HTTP 2xx. Codex sửa kiểm tra để chấp nhận phản hồi revalidation HTTP 304, vẫn đối chiếu Bearer token và email trên UI. Lượt cuối có 24 pass và 18 fail trên 42 lượt thực thi. W12 hiện Failed có screenshot ở cả ba browser khi SUT khóa sớm, W18 pass với assertion bổ sung. W04 dừng khi mật khẩu đúng bị từ chối sau hai lần sai nên assertion reset chưa được thực thi. [Kết quả cuối và bằng chứng](../Report.md#phase-2--fr-02).
 
+### A-06 — FR-07 và lượt chạy sau pilot
+
+Pilot Chromium kiểm bốn ca đại diện. W19 đã dựng được P×2, Q×3, H×4 và thấy Q biến mất khi bấm xóa. Bản đầu dừng ở số dòng sai nên chưa ghi assertion riêng cho dialog. Codex đưa assertion dialog lên trước phép so sánh giỏ, giữ screenshot trang chi tiết khi thiếu phản hồi thêm và screenshot giỏ rỗng ngay khi thiếu minh họa. Bản sinh đầu và raw pilot được lưu trong thư mục làm việc local để đối chiếu. [Thay đổi và kết quả theo browser](../reports/fr07/phase-3/README.md).
+
+Lượt bổ sung T07 dùng hai click để kiểm những hành vi bị che khuất bởi lỗi click đầu. Bản chẩn đoán đầu đọc danh sách dòng quá sớm trên Chromium. Codex thêm bước chờ dòng xuất hiện trước khi lấy snapshot và ghi quantity, thành tiền, tổng giỏ vào report để kiểm độc lập với assertion gộp dòng. [P-017](PromptLog.md#p-017) · [Bằng chứng chẩn đoán](../reports/fr07/phase-3/README.md#chẩn-đoán-sau-hai-click)
+
 ## 3. Tổng kết độ chính xác AI
 
 | Chỉ số theo verdict đề xuất | Số lượng | Tỉ lệ |
 | --- | ---: | ---: |
-| Tổng artifact có verdict đề xuất | 5 | 100% |
+| Tổng artifact có verdict đề xuất | 6 | 100% |
 | VALID | 0 | 0% |
 | INVALID | 0 | 0% |
-| INCOMPLETE | 5 | 100% |
+| INCOMPLETE | 6 | 100% |
 
 ## 4. Kết luận
 

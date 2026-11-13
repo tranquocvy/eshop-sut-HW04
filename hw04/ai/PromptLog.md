@@ -793,3 +793,133 @@ W01 chạy lại trên Firefox đã pass. Request hồ sơ trả HTTP 304, vẫn
 ```text
 Ba report cuối đều đã được kiểm tra. Mỗi browser ghi 8 pass và 6 fail, với cùng sáu ca fail. Mình đang gắn screenshot vào báo cáo cho ba defect và ghi rõ W12 dừng ở bước phát hiện khóa sớm, trước lần thử thứ tư.
 ```
+
+Phạm vi: Triển khai và kiểm thử FR-07 Phase 3
+
+> Log chưa đủ trong phạm vi này. Trích đến phản hồi hiển thị mới nhất tại thời điểm cập nhật.
+
+<a id="msg-9ad748d2316bcfd70290"></a>
+
+## P-016
+
+- Timestamp: 14:37:39 13/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+giúp tôi thực hiện phase 3:
+**3. FR-07 — Giỏ hàngT07** Thêm sản phẩm và hiển thị giỏ. **T08** Đổi số lượng và tính tiền. **T09** Xóa sản phẩm và kiểm giỏ rỗng.Đủ ít nhất 12 ca. Mỗi ca xác minh trạng thái giỏ ban đầu và kết quả sau thao tác. &#x20;
+chưa commit hay push
+```
+
+<a id="msg-2b3bc4937e6720debee5"></a>
+
+### Output
+
+#### Phản hồi 1 — 14:37:42 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng skill `hw04-automation-testing` để chọn ca FR-07 từ HW02, đối chiếu expected với đề và kiểm tra trạng thái giỏ trước và sau thao tác. Mình sẽ giữ toàn bộ thay đổi ở local.
+```
+
+<a id="msg-51e7311ec8606af1da6c"></a>
+
+#### Phản hồi 2 — 14:38:33 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình chọn 15 ca Web từ HW02. Các ca kiểm nút `+`/`−` và xóa hàng sẽ dựng giỏ qua UI rồi đối chiếu từng dòng và tổng tiền trước khi thao tác. Các ca kiểm nút thêm ở trang chi tiết vẫn bấm đúng một lần để phát hiện lỗi click đầu nếu nó còn xuất hiện.
+```
+
+<a id="msg-2305058e00cf03653810"></a>
+
+#### Phản hồi 3 — 14:42:51 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Pilot Chromium đã xác nhận giỏ có thể dựng đúng qua UI. Nó tái hiện lỗi bấm thêm một lần mà giỏ vẫn trống, thiếu nút giảm và xóa ngay khi bấm. Mình đã chỉnh script để report ghi rõ assertion thiếu xác nhận xóa và giữ ảnh tại bước phát hiện lỗi. Ma trận ba browser đang chạy.
+```
+
+<a id="msg-809ec31ece68a5232871"></a>
+
+#### Phản hồi 4 — 14:43:23 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng `course-ai-log` để ghi lại prompt Phase 3 và những điểm Codex đã sửa sau pilot. Phần sinh viên review sẽ để ở trạng thái chờ xác nhận.
+```
+
+<a id="msg-f2a3824e25dd93c50da9"></a>
+
+#### Phản hồi 5 — 14:46:41 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Cả ba browser đều chạy đủ 15 ca và ghi nhận cùng các assertion fail. Mình đã mở HTML report, đối chiếu ID, số liệu và ảnh với kết quả gốc. Các bước phụ thuộc cũng được ghi riêng, chẳng hạn W07 dừng sau lần thêm đầu tiên và T08 chưa thể tính lại tiền vì thiếu nút chỉnh số lượng.
+```
+
+Phạm vi: Chạy bổ sung FR-07 sau hai click
+
+> Log chưa đủ trong phạm vi này. Trích đến phản hồi hiển thị mới nhất tại thời điểm cập nhật.
+
+<a id="msg-ce5b362f038f65caf942"></a>
+
+## P-017
+
+- Timestamp: 15:02:08 13/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+ò oke, bổ sung double click kia đi
+```
+
+<a id="msg-515730dc7ff6e70843a5"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:02:12 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng skill `hw04-automation-testing` để bổ sung lượt chẩn đoán T07 trên ba browser. Script sẽ ghi lại trạng thái sau click đầu, rồi bấm lần hai trên cùng trang để kiểm số lượng, gộp dòng và tổng tiền. Các report gốc vẫn được giữ, Phase 3 tiếp tục ở local.
+```
+
+<a id="msg-aab7f6085a6d56897bf5"></a>
+
+#### Phản hồi 2 — 15:03:34 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Lượt đầu của script chẩn đoán đọc danh sách dòng trước khi React render xong. Mình đã thêm bước chờ dòng sản phẩm xuất hiện và sẽ chạy lại cả ba browser với cùng phiên bản script. Report lượt đầu được giữ để truy vết lỗi script này.
+```
+
+<a id="msg-4ac2891a1638350a6fed"></a>
+
+#### Phản hồi 3 — 15:04:37 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Chromium đã xác nhận lỗi gộp dòng ở W04 và W07. W04 có hai dòng iPhone, lần lượt 2 và 3 chiếc, dù tổng vẫn đúng 150 triệu ₫. Mình sẽ ghi phát hiện này vào báo cáo và đối chiếu với Firefox, WebKit.
+```
+
+<a id="msg-7ac30cca85f83cab10c2"></a>
+
+#### Phản hồi 4 — 15:04:43 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng `course-ai-log` để ghi lượt bổ sung này và lần sửa bước chờ render vào hồ sơ Phase 3.
+```
