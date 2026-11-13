@@ -1,0 +1,65 @@
+[
+  {
+    "id": "CART-W01",
+    "title": "Show an illustration and message for a fresh empty cart",
+    "source": "FR-07",
+    "initial": {},
+    "action": "empty",
+    "after": {}
+  },
+  {
+    "id": "CART-W19",
+    "title": "Cancel removal of the middle product",
+    "source": "FR-07",
+    "initial": {
+      "P": 2,
+      "Q": 3,
+      "H": 4
+    },
+    "action": "cancel",
+    "product": "Q",
+    "after": {
+      "P": 2,
+      "Q": 3,
+      "H": 4
+    }
+  },
+  {
+    "id": "CART-W20",
+    "title": "Confirm removal of the last product and show the empty state",
+    "source": "FR-07",
+    "initial": {
+      "P": 1
+    },
+    "action": "confirm",
+    "product": "P",
+    "after": {}
+  },
+  {
+    "id": "CART-W21",
+    "title": "Confirm removal of the middle product and recalculate the total",
+    "source": "FR-07",
+    "initial": {
+      "P": 2,
+      "Q": 3,
+      "H": 4
+    },
+    "action": "confirm",
+    "product": "Q",
+    "after": {
+      "P": 2,
+      "H": 4
+    }
+  },
+  {
+    "id": "CART-W23",
+    "title": "Return home from empty and nonempty carts",
+    "source": "FR-07",
+    "initial": {},
+    "action": "continue",
+    "secondInitial": {
+      "P": 1
+    },
+    "after": {}
+  }
+]
