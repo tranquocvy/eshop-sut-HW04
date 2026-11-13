@@ -40,11 +40,13 @@ Số feature trong phạm vi: **3**.
 | Feature | Test case tự động hóa | Lượt thực thi test case | Pass | Fail | Lượt chạy browser | Bug |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | FR-02 (Phase 2) | 14 | 42 | 24 | 18 | 3 | 3 |
-| FR-07 | | | | | | |
+| [FR-07 (Phase 3)](reports/fr07/phase-3/README.md) | 15 | 45 | 0 | 45 | 3 | 5 |
 | FR-14 (Phase 1) | 12 | 36 | 30 | 6 | 3 | 2 |
-| **Tổng các phase đã chạy** | **26** | **78** | **54** | **24** | **6** | **5** |
+| **Tổng các phase đã chạy** | **41** | **123** | **54** | **69** | **9** | **10** |
 
 <!-- Đếm test case tự động hóa theo ID duy nhất. Thống kê lượt thực thi, pass và fail theo các HTML report được dùng để tổng hợp. Ghi cách xử lý retry, skip và blocked nếu phát sinh. -->
+
+Ba lượt chẩn đoán FR-07 sau hai click bổ sung 15 lượt thực thi trên 5 ID đã có, gồm 9 pass và 6 fail. Tổng cộng có 12 lượt chạy feature × browser dùng trong báo cáo, gồm 9 lượt chính trong bảng và 3 lượt chẩn đoán. Lượt chẩn đoán xác nhận thêm một lỗi gộp dòng Web. [HTML report và verdict của lượt chẩn đoán](reports/fr07/phase-3/README.md#chẩn-đoán-sau-hai-click)
 
 ## Video demo
 
