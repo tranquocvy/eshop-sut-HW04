@@ -1,0 +1,104 @@
+[
+  {
+    "id": "CART-W02",
+    "title": "Add one unit from product detail",
+    "source": "FR-06, FR-07",
+    "initial": {},
+    "additions": [
+      {
+        "product": "P",
+        "quantity": 1,
+        "after": {
+          "P": 1
+        }
+      }
+    ],
+    "checkLayout": true
+  },
+  {
+    "id": "CART-W03",
+    "title": "Add three units from product detail",
+    "source": "FR-06, FR-07",
+    "initial": {},
+    "additions": [
+      {
+        "product": "P",
+        "quantity": 3,
+        "after": {
+          "P": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "CART-W04",
+    "title": "Add three units of an existing product without a duplicate line",
+    "source": "FR-06, FR-07",
+    "initial": {
+      "P": 2
+    },
+    "additions": [
+      {
+        "product": "P",
+        "quantity": 3,
+        "after": {
+          "P": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "CART-W07",
+    "title": "Add the same product once on each of three visits",
+    "source": "FR-06, FR-07",
+    "initial": {},
+    "additions": [
+      {
+        "product": "P",
+        "quantity": 1,
+        "after": {
+          "P": 1
+        }
+      },
+      {
+        "product": "P",
+        "quantity": 1,
+        "after": {
+          "P": 2
+        }
+      },
+      {
+        "product": "P",
+        "quantity": 1,
+        "after": {
+          "P": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "CART-W09",
+    "title": "Show the required cart columns, quantity controls and total label",
+    "source": "FR-07",
+    "initial": {
+      "P": 1
+    },
+    "additions": [],
+    "checkLayout": true
+  },
+  {
+    "id": "CART-W34",
+    "title": "Add two units at the positive quantity boundary",
+    "source": "FR-06, FR-07",
+    "initial": {},
+    "additions": [
+      {
+        "product": "P",
+        "quantity": 2,
+        "after": {
+          "P": 2
+        }
+      }
+    ]
+  }
+]
