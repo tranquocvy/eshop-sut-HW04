@@ -1,0 +1,84 @@
+[
+  {
+    "id": "CART-W16",
+    "title": "Increase one unit to two and recalculate the total",
+    "source": "FR-07",
+    "initial": {
+      "P": 1
+    },
+    "changes": [
+      {
+        "product": "P",
+        "delta": 1,
+        "after": {
+          "P": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "CART-W17",
+    "title": "Decrease two units to one and keep the row",
+    "source": "FR-07",
+    "initial": {
+      "P": 2
+    },
+    "changes": [
+      {
+        "product": "P",
+        "delta": -1,
+        "after": {
+          "P": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "CART-W18",
+    "title": "Prevent a decrease below one or let the user cancel removal",
+    "source": "FR-07",
+    "initial": {
+      "P": 1
+    },
+    "changes": [
+      {
+        "product": "P",
+        "delta": -1,
+        "after": {
+          "P": 1
+        }
+      }
+    ],
+    "minimum": true
+  },
+  {
+    "id": "CART-W31",
+    "title": "Increase Q and decrease H, updating only the selected rows",
+    "source": "FR-07",
+    "initial": {
+      "P": 2,
+      "Q": 3,
+      "H": 4
+    },
+    "changes": [
+      {
+        "product": "Q",
+        "delta": 1,
+        "after": {
+          "P": 2,
+          "Q": 4,
+          "H": 4
+        }
+      },
+      {
+        "product": "H",
+        "delta": -1,
+        "after": {
+          "P": 2,
+          "Q": 4,
+          "H": 3
+        }
+      }
+    ]
+  }
+]
