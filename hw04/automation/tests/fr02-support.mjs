@@ -66,10 +66,10 @@ export const test = base.extend({
 
 export function loginForm(page) {
   const form = page.locator('form').filter({ has: page.getByRole('button', { name: 'Sign In', exact: true }) });
-  const password = form.locator('input[type="password"]');
+  const password = form.locator('input[type="text"]');
   return {
     form,
-    email: form.locator('input:not([type="password"])'),
+    email: form.locator('input:not([type="text"])'),
     password,
     submit: form.getByRole('button', { name: 'Sign In', exact: true })
   };
@@ -115,7 +115,7 @@ export async function expectAccepted(page, { response }) {
   expect(response.ok(), 'Login response is successful').toBe(true);
   const { token } = await response.json();
   expect(typeof token === 'string' && /^[\w-]+\.[\w-]+\.[\w-]+$/.test(token), 'Response has a JWT').toBe(true);
-  await expect(page).toHaveURL(/:\d+\/$/);
+  await expect(page).toHaveURL(url => url.pathname === '/');
   await expect(page.locator('a[href="/profile"]')).toBeVisible();
   expect((await clientToken(page)) === token, 'Client stores the response JWT').toBe(true);
   return token;

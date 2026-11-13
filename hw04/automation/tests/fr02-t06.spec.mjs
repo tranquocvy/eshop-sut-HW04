@@ -40,6 +40,8 @@ async function checkThreshold(page, account, row) {
   expect.soft(firstLock + 1, 'First wrong attempt that activates lockout').toBe(row.shouldLock ? row.expectedCounters.length : 0);
   if (!row.shouldLock) {
     await expectAccepted(page, await submitLogin(page, account.email, account.password));
+    expect(account.state(), 'Successful login resets consecutive failures and clears lock state')
+      .toEqual({ attempts: 0, deadline: null });
     return;
   }
 
@@ -64,7 +66,7 @@ async function checkFourthFailure(page, account, row) {
     await test.info().attach('State reached before blocked fourth attempt', {
       body: await page.screenshot(), contentType: 'image/png'
     });
-    test.skip(true, 'Blocked: the UI sequence did not reach the required three-attempt, 30-second lock fixture.');
+    throw new Error('Lockout precondition failed: the observed UI sequence did not reach the expected lock state.');
   }
 
   await setTimeout(Math.max(0, third.receivedAt + row.offsetMs - Date.now()));
@@ -107,6 +109,8 @@ for (const row of cases) {
       const freshAttempt = await submitLogin(freshPage, account.email, account.password);
       expect(freshAttempt.receivedAt, 'Fresh browser context tested during the same lock').toBeLessThan(Date.parse(initial.deadline));
       await expectDenied(freshPage, freshAttempt);
+      expect(account.state(), 'Fresh session must not change the lock deadline or counter')
+        .toEqual(initial);
     } finally {
       await freshContext.close();
     }
