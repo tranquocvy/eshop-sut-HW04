@@ -136,6 +136,7 @@ Kết quả cuối gồm 14 ID và 42 lượt thực thi trên Chromium, Firefox
 - **Ảnh W07.** [Chromium](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/data/55bc2d4ea74af68b24d1593b91d6878c8a2fb041.png) · [Firefox](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/data/58b7d5425b5a49d0ea2f376e0deea3d423ea6e5d.png) · [WebKit](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/data/7714b1f02b9b31d7320332f72bfabbc4f3e823ab.png)
 
 ### FR02-BUG02 — Bộ đếm tăng hai và khóa tài khoản ở lần sai thứ hai
+- [GitHub Issue #3](https://github.com/tranquocvy/eshop-sut-HW04/issues/3) · [Ảnh chụp trang issue](reports/fr02/phase-2/github-issues/HW04-issue-03-FR02-BUG01.png)
 
 - **Expected theo FR-02.** Mỗi lần nhập sai làm counter tăng một. Hai lần sai vẫn cho phép đăng nhập bằng mật khẩu đúng. Khóa bắt đầu ở lần sai thứ ba liên tiếp.
 - **Cách tái hiện.** Với tài khoản mới, thử sai mật khẩu một lần rồi kiểm counter. Thử sai lần hai, sau đó nhập mật khẩu đúng trong vòng 30 giây.
@@ -143,6 +144,7 @@ Kết quả cuối gồm 14 ID và 42 lượt thực thi trên Chromium, Firefox
 - **Ảnh W12 kèm log chuỗi trong HTML report.** [Chromium](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/data/0047aef00eb13dd7e45b9d47ab0363335c6f429c.png) · [Firefox](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/data/beaf18a5188b45ad120a26aa4e651f8f4878b8ff.png) · [WebKit](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/data/2769cf880ad8de34b125ce5df1b9d3b057926b61.png)
 
 ### FR02-BUG03 — Thời hạn khóa được đặt khoảng 180 giây
+- [GitHub Issue #4](https://github.com/tranquocvy/eshop-sut-HW04/issues/4) · [Ảnh chụp trang issue](reports/fr02/phase-2/github-issues/HW04-issue-04-FR02-BUG02.png)
 
 - **Expected theo FR-02.** Thời hạn khóa demo là 30 giây kể từ lần đăng nhập sai kích hoạt khóa.
 - **Cách tái hiện.** Nhập sai mật khẩu liên tiếp qua Web với một tài khoản mới. Ghi thời điểm trước và sau request đầu tiên tạo `locked_until`, rồi đối chiếu deadline lưu trong SQLite.
@@ -150,6 +152,7 @@ Kết quả cuối gồm 14 ID và 42 lượt thực thi trên Chromium, Firefox
 - **Ảnh W05 và số đo trong HTML report.** [Chromium](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/data/efe47519206e697acf600c9c276bd7c419567aa5.png) · [Firefox](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/data/1256eb060ce67358382737177ca1751d466285a9.png) · [WebKit](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/data/cf87d62113e11be5dad18b4aa01308e8b7b301aa.png)
 
 ## 6. Hồ sơ AI và demo
+- [GitHub Issue #5](https://github.com/tranquocvy/eshop-sut-HW04/issues/5) · [Ảnh chụp trang issue](reports/fr02/phase-2/github-issues/HW04-issue-05-FR02-BUG03.png)
 
 - [AI Audit Report và khai báo sử dụng AI](ai/AI_Audit_Report.md)
 - [AI Critique](ai/AI_Critique.md)
