@@ -18,6 +18,8 @@ Script kiểm ID thiếu, ID trùng và test ngoài danh sách dữ liệu ở t
 
 Khi tách helper dùng chung, chạy lại cả các spec đã có để kiểm những đường thực thi mà bước thu thập test chưa chạm tới. Với ca kiểm persistence, nếu browser trả HTTP 304 sau reload, tiếp tục đối chiếu dữ liệu UI với expected của ca. Giữ report trước sửa để phân biệt lỗi script với hành vi của SUT.
 
+Khi thuộc tính HTML là đối tượng kiểm thử, định vị control theo nhãn hoặc vùng chứa xác minh được trong DOM, rồi assert thuộc tính riêng. Ví dụ, kiểm `type=email` sau khi định vị ô email. Trong một chuỗi thao tác thật, nếu SUT tạo trạng thái sai trước bước cuối, ghi assertion fail với trạng thái quan sát được và bước chưa thực hiện. Dùng Blocked khi môi trường hoặc dữ liệu setup khiến ca chưa thể bắt đầu kiểm nghiệp vụ.
+
 ## Chạy và tạo HTML report
 
 Chạy một cặp feature và browser mỗi lượt khi rubric cần report riêng. Chọn thư mục report mới và tạo timestamp tại thời điểm bắt đầu chạy. Ví dụ PowerShell cho một project đã có trong config.
