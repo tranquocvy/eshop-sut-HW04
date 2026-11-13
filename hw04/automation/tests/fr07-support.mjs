@@ -176,6 +176,61 @@ export async function addFromDetail(page, product, quantity) {
   await openCart(page);
 }
 
+export async function addWithSecondClick(page, product, quantity, info, step) {
+  const button = await productDetail(page, product, quantity);
+  const before = (await cartLink(page).innerText()).trim();
+  const feedback = page.getByRole('main').getByText(/^(Đã thêm|Đã thêm vào giỏ hàng)[.!]?$/i);
+  await button.click();
+  const afterFirst = {
+    feedbackVisible: await feedback.first().isVisible(),
+    cartLinkChanged: (await cartLink(page).innerText()).trim() !== before
+  };
+  await info.attach(`step-${step}-after-first-click`, { body: await page.screenshot(), contentType: 'image/png' });
+  await info.attach(`step-${step}-first-click-observation`, {
+    body: JSON.stringify(afterFirst), contentType: 'application/json'
+  });
+  // Continue only while the original Add control remains available and no success is visible.
+  expect(afterFirst, 'Workaround requires no visible success on the first click').toEqual({
+    feedbackVisible: false, cartLinkChanged: false
+  });
+  await button.click();
+  await expect.poll(async () =>
+    await feedback.first().isVisible() || (await cartLink(page).innerText()).trim() !== before,
+  { message: 'Second click produces visible feedback' }).toBe(true);
+  await openCart(page);
+}
+
+export async function checkAddedProduct(page, code, quantity) {
+  const productRows = cartRow(page, code);
+  await expect(productRows.first(), 'At least one row for the added product').toBeVisible();
+  await expect.soft(page.locator('main tbody tr'), 'Cart should contain one merged row').toHaveCount(1, { timeout: 1000 });
+  const price = products[code].price;
+  const observedRows = [];
+  let observedQuantity = 0;
+  let observedAmount = 0;
+  for (const row of await productRows.all()) {
+    const cells = row.getByRole('cell');
+    const amount = cells.nth(2);
+    const input = amount.locator('input');
+    const quantityText = await input.count()
+      ? await input.inputValue()
+      : (await amount.innerText()).replace(/[+−–-]/g, '').trim();
+    const units = Number(quantityText);
+    const lineAmount = money(await cells.nth(3).innerText());
+    expect.soft(Number.isSafeInteger(units) && units > 0, 'Positive integer row quantity').toBe(true);
+    expect.soft(money(await cells.nth(1).innerText()), 'Unit price').toBe(price);
+    expect.soft(lineAmount, 'Line amount matches displayed quantity').toBe(price * units);
+    observedRows.push({ quantity: units, lineAmount });
+    observedQuantity += units;
+    observedAmount += lineAmount;
+  }
+  expect.soft(observedQuantity, 'Quantity summed across matching rows').toBe(quantity);
+  expect.soft(observedAmount, 'Sum of line amounts').toBe(price * quantity);
+  const total = money((await totalLine(page).innerText()).replace(/^[^:]+:\s*/, ''));
+  expect.soft(total, 'Displayed cart total').toBe(price * quantity);
+  return { rows: observedRows, quantity: observedQuantity, lineAmount: observedAmount, total };
+}
+
 export function quantityButton(row, delta) {
   return row.getByRole('button', { name: delta > 0 ? /^(\+|Tăng(?: số lượng)?)$/i : /^([-−–]|Giảm(?: số lượng)?)$/i });
 }
