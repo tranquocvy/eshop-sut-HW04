@@ -637,3 +637,159 @@ Nếu bạn mới xem report, còn **một phần cần bạn trực tiếp revi
 
 Đề còn yêu cầu trong video bạn trình bày **ít nhất một chỉnh sửa script do chính bạn thực hiện**. Bản sửa `304` hiện do AI thực hiện, nên phần bạn xác nhận ở đây được ghi nhận là review. [Yêu cầu video](/D:/Workspace/SoftwareTesting/HW04/rubric_vn.md:72)
 ```
+
+Phạm vi: Tạo và chạy lại bộ automation FR-02 Phase 2
+
+> Log chưa đủ trong phạm vi này. Lượt chạy lại ghi đến phản hồi hiển thị mới nhất tại thời điểm cập nhật.
+
+<a id="msg-df7f854cffb5b4272eb6"></a>
+
+## P-014
+
+- Timestamp: 16:50:38 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+Thực hiện **Phase 2 — FR-02 Login và lockout** theo skill HW04:
+Chọn ít nhất **12 ca web từ HW02**, đối chiếu expected với FR-02, sinh script Playwright data-driven với ít nhất **3 kiểu assertion**, rồi chạy trên **Chromium, Firefox và WebKit** để tạo HTML report. Cô lập trạng thái tài khoản giữa các ca để bộ đếm đăng nhập sai không ảnh hưởng kết quả.
+**Dừng sau lần chạy đầu.** Giữ nguyên script AI sinh và ghi lại các điểm cần review. Tôi sẽ tự chỉnh script rồi yêu cầu bạn duyệt và chạy lại. Chưa commit hay push.
+```
+
+<a id="msg-53d2c0841ecfa7d6046f"></a>
+
+### Output
+
+#### Phản hồi 1 — 16:50:41 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng skill `hw04-automation-testing` để đối chiếu ca HW02 với FR-02, sinh script và chạy một lượt trên ba browser. Sau lượt đó, mình sẽ giữ nguyên script và ghi lại các điểm để bạn review.
+```
+
+<a id="msg-83871b4222cd1ece336a"></a>
+
+#### Phản hồi 2 — 16:51:36 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình chọn 14 ca Web từ HW02. Các ca kiểm ngưỡng sẽ đi qua chuỗi đăng nhập sai thật trên UI. Với các ca bắt đầu từ trạng thái đã khóa, mình sẽ tạo fixture riêng để kiểm hành vi trong thời gian khóa, đồng thời ghi rõ nguồn expected của từng ca.
+```
+
+<a id="msg-901ad9ea31221aebce99"></a>
+
+#### Phản hồi 3 — 16:56:16 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Chromium đã báo lỗi ở helper dùng chung: locator ô email khớp cả hai ô nhập, nên các ca dừng trước khi submit. Mình sẽ để Firefox và WebKit hoàn tất lượt đầu với cùng bản script và ghi rõ đây là lỗi script cần review.
+```
+
+<a id="msg-c1e2f38d518541a1cb72"></a>
+
+#### Phản hồi 4 — 16:59:17 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đã sinh **14 ca Web data-driven từ HW02** cho T04–T06 và chạy đúng một lượt trên mỗi browser. Suite có assertion cho UI và điều hướng, HTML5 validation, JWT và bộ đếm đăng nhập sai.
+
+| HTML report | Pass | Fail theo Playwright |
+| --- | ---: | ---: |
+| [Chromium](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr02/phase-2/chromium/20261112T0955155703651Z/index.html) | 0 | 14 |
+| [Firefox](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr02/phase-2/firefox/20261112T0956001808491Z/index.html) | 0 | 14 |
+| [WebKit](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr02/phase-2/webkit/20261112T0957590241209Z/index.html) | 0 | 14 |
+
+**Chỗ bạn có thể sửa trước** là [`loginForm()`](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/automation/tests/fr02-support.mjs:67). Script giả định ô mật khẩu có `type=password`, nhưng baseline dùng `type=text` cho cả hai ô. Locator email vì thế khớp hai phần tử và cả 42 lượt dừng trước khi submit. Hành vi login và lockout vẫn chưa được xác minh. Khi sửa locator, giữ `type=email` là assertion riêng của W07.
+
+[Mapping với FR-02 và ghi chú review](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr02/phase-2/README.md). Đã giữ nguyên script AI và bằng chứng lượt đầu. Chưa chạy lại, commit hay push.
+```
+
+<a id="msg-987110fcfeea4b074129"></a>
+
+## P-015
+
+- Timestamp: 17:55:07 12/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+oke tôi đã review, hãy dùng lại skill, đi theo đúng step và build lại phase 2. Không bypass / bỏ qua bước nào
+```
+
+<a id="msg-e3bbb9fd04c04c70b2f0"></a>
+
+### Output
+
+#### Phản hồi 1 — 17:55:11 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng lại skill `hw04-automation-testing`, đối chiếu phần bạn đã review với bản AI gốc, sửa các điểm còn lỗi, chạy pilot rồi chạy đủ ba browser. Kết quả mỗi lượt sẽ được lưu riêng để truy vết.
+```
+
+<a id="msg-fa5997487c2d990f2a34"></a>
+
+#### Phản hồi 2 — 17:55:39 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mapping vẫn khớp 14 ca HW02. Phần bạn sửa ở W04, W12 và W18 sẽ được giữ. Mình sẽ sửa locator theo vùng có nhãn trên DOM để W07 vẫn kiểm `type=email` độc lập, rồi chạy pilot một ca mỗi task.
+```
+
+<a id="msg-97e1b3962020605e9ff5"></a>
+
+#### Phản hồi 3 — 17:56:30 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng thêm skill `course-ai-log` để cập nhật audit cho Phase 2. Phần chỉnh sửa của bạn sẽ được đối chiếu từ commit, và các lượt bạn dặn không lưu sẽ nằm ngoài PromptLog.
+```
+
+<a id="msg-f35318ac77af9a4e4e84"></a>
+
+#### Phản hồi 4 — 17:57:38 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Pilot Chromium đã đi qua form đăng nhập và kiểm được JWT cùng hồ sơ ở W01. W07 ghi nhận email sai định dạng vẫn gửi request, còn W12 báo `Failed` kèm screenshot khi tài khoản khóa từ lần sai thứ hai. Mình sẽ đối chiếu hai hiện tượng này và các ca còn lại trên đủ ba browser.
+```
+
+<a id="msg-ea48e5d902c5a98b8b98"></a>
+
+#### Phản hồi 5 — 17:59:52 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Lượt đủ ca phát hiện thêm một vấn đề ở W01 trên Firefox. Assertion hiện tại báo lỗi ngay khi phản hồi tải hồ sơ nằm ngoài 2xx, nên report chưa cho biết mã HTTP hay hồ sơ thực tế trên UI. Mình sẽ ghi mã phản hồi và kiểm lại ca này trên Firefox trước.
+```
+
+<a id="msg-351db18d1b09bdbb98cc"></a>
+
+#### Phản hồi 6 — 18:01:21 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+W01 chạy lại trên Firefox đã pass. Request hồ sơ trả HTTP 304, vẫn mang đúng Bearer token và UI hiển thị đúng email. Mình đã giữ report có lỗi assertion và đang chạy lại đủ ba browser với bản đã sửa.
+```
+
+<a id="msg-5872f1cd248b2727703d"></a>
+
+#### Phản hồi 7 — 18:04:11 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Ba report cuối đều đã được kiểm tra. Mỗi browser ghi 8 pass và 6 fail, với cùng sáu ca fail. Mình đang gắn screenshot vào báo cáo cho ba defect và ghi rõ W12 dừng ở bước phát hiện khóa sớm, trước lần thử thứ tư.
+```
