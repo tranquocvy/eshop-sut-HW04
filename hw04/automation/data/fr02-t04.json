@@ -1,0 +1,5 @@
+[
+  { "id": "FR02-W01", "title": "JWT và hồ sơ người dùng", "role": "user", "password": "Hw04Demo!234", "checkProfile": true },
+  { "id": "FR02-W02", "title": "Đăng nhập tài khoản admin trên Web", "role": "admin", "password": "Hw04Demo!234", "checkProfile": false },
+  { "id": "FR02-W19", "title": "Đăng nhập bằng mật khẩu ngắn đã đăng ký", "role": "user", "password": "Ab1!", "checkProfile": false }
+]

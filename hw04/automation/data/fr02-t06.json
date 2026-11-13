@@ -1,0 +1,7 @@
+[
+  { "id": "FR02-W04", "title": "Hai lần sai vẫn cho phép đăng nhập đúng", "check": "threshold", "wrongPassword": "Wrong123!", "expectedCounters": [1, 2], "shouldLock": false },
+  { "id": "FR02-W05", "title": "Lần sai thứ ba kích hoạt khóa 30 giây", "check": "threshold", "wrongPassword": "Wrong123!", "expectedCounters": [1, 2, 3], "shouldLock": true, "lockMs": 30000 },
+  { "id": "FR02-W11", "title": "Từ chối mật khẩu đúng khi đã khóa 10 giây", "check": "locked", "lockMs": 30000, "offsetMs": 10000, "expectedAttempts": 3 },
+  { "id": "FR02-W12", "title": "Lần sai thứ tư khi đang khóa", "check": "fourth-failure", "wrongPassword": "Wrong123!", "lockMs": 30000, "offsetMs": 10000, "expectedCounters": [1, 2, 3] },
+  { "id": "FR02-W18", "title": "Reload và phiên mới vẫn bị khóa", "check": "new-session", "lockMs": 30000, "expectedAttempts": 3 }
+]

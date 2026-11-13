@@ -1,0 +1,8 @@
+[
+  { "id": "FR02-W03", "title": "Một lần sai tăng bộ đếm đúng một", "check": "counter", "wrongPassword": "Wrong123!", "expectedAttempts": 1 },
+  { "id": "FR02-W06", "title": "Lỗi chung cho mật khẩu sai và email chưa đăng ký", "check": "generic-error", "wrongPassword": "Wrong123!" },
+  { "id": "FR02-W07", "title": "Email thiếu dấu @ bị HTML5 chặn", "check": "validation", "email": "plainaddress", "invalidField": "email", "validityFlag": "typeMismatch", "expectedType": "email" },
+  { "id": "FR02-W08", "title": "Email thiếu domain bị HTML5 chặn", "check": "validation", "email": "a@", "invalidField": "email", "validityFlag": "typeMismatch" },
+  { "id": "FR02-W09", "title": "Email trống bị chặn", "check": "validation", "email": "", "invalidField": "email", "validityFlag": "valueMissing" },
+  { "id": "FR02-W10", "title": "Mật khẩu trống bị chặn", "check": "validation", "password": "", "invalidField": "password", "validityFlag": "valueMissing" }
+]
