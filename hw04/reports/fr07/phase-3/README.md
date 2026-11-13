@@ -67,10 +67,11 @@ Lượt chẩn đoán đầu trên Chromium lấy snapshot dòng trước khi Re
 
 ## Defect tái hiện
 
-Giữ cách nhóm và ID của năm Web defect từ HW02. W09 có nhiều assertion fail nên liên quan nhiều defect, còn W20 liên quan cả xác nhận xóa và minh họa. Các phát hiện dưới đây dựa trên lượt Phase 3.
+Năm lỗi Web từ HW02 tái hiện ở lượt chính, và lỗi gộp dòng Web được xác nhận ở lượt chẩn đoán. W09 liên quan nhiều assertion fail, còn W20 liên quan cả xác nhận xóa và minh họa.
 
 ### CART-BUG01 — Click đầu ở trang chi tiết không thêm sản phẩm
 
+- [GitHub Issue #6](https://github.com/tranquocvy/eshop-sut-HW04/issues/6) · [Ảnh chụp trang Issue](github-issues/HW04-issue-06-FR07-BUG01.png)
 - **Ca.** W02, W03, W04, W07, W34.
 - **Expected.** Một click thêm đúng số lượng và có phản hồi theo FR-06. Khi trùng sản phẩm, FR-07 yêu cầu gộp dòng.
 - **Actual.** Không thấy phản hồi và giỏ không đổi. W04 vẫn có P×2 thay vì P×5. W07 dừng ngay sau lần thêm thứ nhất.
@@ -78,6 +79,7 @@ Giữ cách nhóm và ID của năm Web defect từ HW02. W09 có nhiều assert
 
 ### CART-BUG02 — Giỏ rỗng thiếu hình minh họa
 
+- [GitHub Issue #7](https://github.com/tranquocvy/eshop-sut-HW04/issues/7) · [Ảnh chụp trang Issue](github-issues/HW04-issue-07-FR07-BUG02.png)
 - **Ca.** W01, W20, W23.
 - **Expected.** Giỏ rỗng có thông báo và hình minh họa theo FR-07.
 - **Actual.** Có thông báo và 0 dòng, không có minh họa nhìn thấy. W23 vẫn quay về trang chủ và mở lại đúng giỏ ở cả hai nhánh.
@@ -85,6 +87,7 @@ Giữ cách nhóm và ID của năm Web defect từ HW02. W09 có nhiều assert
 
 ### CART-BUG03 — Bảng giỏ thiếu nút +/− và cột Đơn giá ghi Giá
 
+- [GitHub Issue #8](https://github.com/tranquocvy/eshop-sut-HW04/issues/8) · [Ảnh chụp trang Issue](github-issues/HW04-issue-08-FR07-BUG03.png)
 - **Ca.** W09, W16, W17, W18, W31.
 - **Expected.** FR-07 yêu cầu cột Đơn giá và nút +/− trong cột Số lượng.
 - **Actual.** Cột đơn giá ghi “Giá” và số lượng chỉ hiển thị dưới dạng văn bản. T08 kiểm được giỏ ban đầu và giỏ giữ nguyên khi thiếu nút. Bước chỉnh số lượng và tính lại tiền chưa thể thực hiện.
@@ -92,6 +95,7 @@ Giữ cách nhóm và ID của năm Web defect từ HW02. W09 có nhiều assert
 
 ### CART-BUG04 — Sai nhãn tổng tiền
 
+- [GitHub Issue #9](https://github.com/tranquocvy/eshop-sut-HW04/issues/9) · [Ảnh chụp trang Issue](github-issues/HW04-issue-09-FR07-BUG04.png)
 - **Ca.** W09.
 - **Expected.** Nhãn hiển thị đúng “Tổng cộng” theo FR-07.
 - **Actual.** Hiển thị “Tổng tạm tính” dù số tiền fixture P×1 vẫn là 30 triệu ₫.
@@ -99,7 +103,15 @@ Giữ cách nhóm và ID của năm Web defect từ HW02. W09 có nhiều assert
 
 ### CART-BUG05 — Bấm xóa làm mất dòng ngay, không có xác nhận
 
+- [GitHub Issue #10](https://github.com/tranquocvy/eshop-sut-HW04/issues/10) · [Ảnh chụp trang Issue](github-issues/HW04-issue-10-FR07-BUG05.png)
 - **Ca.** W19, W20, W21.
 - **Expected.** FR-07 yêu cầu xác nhận trước khi xóa. Hủy giữ nguyên giỏ.
 - **Actual.** Dòng biến mất ngay, không thể hủy ở W19. W20 về giỏ rỗng và W21 giữ đúng hai dòng còn lại, nhưng đều thiếu bước xác nhận.
 - **Ảnh từ CART-W19.** [Chromium](final/chromium/20261113T0742417675299Z/data/9d3ad3bd54c75b9257aadd2f1026603aef15dda9.png) · [Firefox](final/firefox/20261113T0743353230947Z/data/1e9ea6b3ab175b7ad5d8d706dc79aa25130bf6f9.png) · [WebKit](final/webkit/20261113T0745314331071Z/data/84f868f76d7b9d7276dac30dd66e54b45b767d7d.png)
+
+### FR07-BUG06 — Thêm trùng sản phẩm tạo nhiều dòng trong giỏ Web
+
+- [GitHub Issue #11](https://github.com/tranquocvy/eshop-sut-HW04/issues/11) · [Ảnh chụp trang Issue](github-issues/HW04-issue-11-FR07-BUG06.png)
+- **Ca.** W04 và W07 ở [lượt chẩn đoán](#chẩn-đoán-sau-hai-click).
+- **Expected.** Thêm cùng sản phẩm tăng số lượng trên một dòng.
+- **Actual.** W04 hiện hai dòng iPhone ×2 và ×3, tổng vẫn đúng 150 triệu ₫. W07 hiện hai rồi ba dòng iPhone ×1.
