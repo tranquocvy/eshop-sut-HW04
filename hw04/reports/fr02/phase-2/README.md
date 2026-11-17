@@ -1,6 +1,6 @@
 # FR-02 — Phase 2
 
-SUT baseline `85af3ba875c88283615e22cb108f13e2fccaf0e9`. Bộ 14 ca giữ ID từ `features/fr02-login/test-cases.md` trong bộ nộp HW02. Expected lấy từ [FR-02 trong SRS EShop](../../../../README.md#fr-02-đăng-nhập--khóa-tài-khoản) và phần trace trong `features/fr02-login/design.md` của HW02. Các mục `A01–A03` giữ mức giả định như tài liệu nguồn.
+SUT baseline `85af3ba875c88283615e22cb108f13e2fccaf0e9`. Bộ 14 ca giữ ID từ `features/fr02-login/test-cases.md` trong bộ nộp HW02. Expected lấy từ [FR-02 trong SRS EShop](https://github.com/ttbhanh/eshop-sut/blob/85af3ba875c88283615e22cb108f13e2fccaf0e9/README.md#fr-02-đăng-nhập--khóa-tài-khoản) và phần trace trong `features/fr02-login/design.md` của HW02. Các mục `A01–A03` giữ mức giả định như tài liệu nguồn.
 
 ## Mapping
 

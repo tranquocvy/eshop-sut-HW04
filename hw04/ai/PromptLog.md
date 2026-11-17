@@ -640,8 +640,6 @@ Nếu bạn mới xem report, còn **một phần cần bạn trực tiếp revi
 
 Phạm vi: Tạo và chạy lại bộ automation FR-02 Phase 2
 
-> Log chưa đủ trong phạm vi này. Lượt chạy lại ghi đến phản hồi hiển thị mới nhất tại thời điểm cập nhật.
-
 <a id="msg-df7f854cffb5b4272eb6"></a>
 
 ## P-014
@@ -794,9 +792,21 @@ W01 chạy lại trên Firefox đã pass. Request hồ sơ trả HTTP 304, vẫn
 Ba report cuối đều đã được kiểm tra. Mỗi browser ghi 8 pass và 6 fail, với cùng sáu ca fail. Mình đang gắn screenshot vào báo cáo cho ba defect và ghi rõ W12 dừng ở bước phát hiện khóa sớm, trước lần thử thứ tư.
 ```
 
-Phạm vi: Triển khai và kiểm thử FR-07 Phase 3
+<a id="msg-ebe618850f15c6663818"></a>
 
-> Log chưa đủ trong phạm vi này. Trích đến phản hồi hiển thị mới nhất tại thời điểm cập nhật.
+#### Phản hồi 8 — 18:05:46 12/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đã chạy lại **Phase 2 — FR-02** theo skill, từ đối chiếu 14 ca HW02 và review script đến pilot, chạy đủ ba browser và kiểm HTML report. Kết quả cuối là **24 pass, 18 fail, 0 skipped trên 42 lượt**. Chromium, Firefox và WebKit đều có 8 pass và 6 fail. [HTML reports và lịch sử các lượt chạy](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr02/phase-2/README.md)
+
+Bản sửa của bạn ở **W12** đã được kiểm chứng trên cả ba browser. Khi tài khoản khóa sớm, test báo `Failed` kèm screenshot và ghi rõ lần thử thứ tư chưa được gửi. **W18** pass với assertion bạn bổ sung. **W04** dừng khi mật khẩu đúng bị từ chối sau hai lần sai, nên chưa tới assertion reset bộ đếm. Mình đã sửa locator theo nhãn trên DOM và xử lý HTTP 304 khi Firefox tải lại hồ sơ. [Ghi nhận review và chỉnh sửa](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/ai/AI_Audit_Report.md#a-05--fr-02-và-lượt-chạy-sau-review)
+
+Ba defect tái hiện trên cả ba browser gồm email sai định dạng vẫn gửi request, bộ đếm tăng hai và gây khóa từ lần sai thứ hai, và thời hạn khóa khoảng 180 giây thay vì 30 giây. Đã ghi bước tái hiện và gắn screenshot cho từng defect. Các cập nhật đang ở local, còn bước đăng ba GitHub Issue. [Báo cáo defect](/D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md#5-bug-phát-hiện)
+```
+
+Phạm vi: Triển khai và kiểm thử FR-07 Phase 3
 
 <a id="msg-9ad748d2316bcfd70290"></a>
 
@@ -865,9 +875,27 @@ Mình sẽ dùng `course-ai-log` để ghi lại prompt Phase 3 và những đi�
 Cả ba browser đều chạy đủ 15 ca và ghi nhận cùng các assertion fail. Mình đã mở HTML report, đối chiếu ID, số liệu và ảnh với kết quả gốc. Các bước phụ thuộc cũng được ghi riêng, chẳng hạn W07 dừng sau lần thêm đầu tiên và T08 chưa thể tính lại tiền vì thiếu nút chỉnh số lượng.
 ```
 
-Phạm vi: Chạy bổ sung FR-07 sau hai click
+<a id="msg-1f4c8519168fb5d2158c"></a>
 
-> Log chưa đủ trong phạm vi này. Trích đến phản hồi hiển thị mới nhất tại thời điểm cập nhật.
+#### Phản hồi 6 — 14:48:16 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đã triển khai và chạy **Phase 3 — FR-07 Giỏ hàng** với **15 ca Web từ HW02**. T07 có 6 ca thêm và hiển thị giỏ, T08 có 4 ca chỉnh số lượng và tính tiền, T09 có 5 ca xóa và kiểm giỏ rỗng. Mỗi ca dùng browser context riêng và xác minh giỏ ban đầu trước khi kiểm kết quả sau thao tác. Mình dùng UI để dựng fixture cho các ca cần giỏ có sẵn hàng. Các ca kiểm nút thêm ở trang chi tiết vẫn bấm đúng một lần mỗi bước.
+
+| Browser | Pass | Fail | Skipped |
+| --- | ---: | ---: | ---: |
+| [Chromium](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr07/phase-3/final/chromium/20261113T0742417675299Z/index.html) | 0 | 15 | 0 |
+| [Firefox](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr07/phase-3/final/firefox/20261113T0743353230947Z/index.html) | 0 | 15 | 0 |
+| [WebKit](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr07/phase-3/final/webkit/20261113T0745314331071Z/index.html) | 0 | 15 | 0 |
+
+**45 lượt fail tái hiện 5 nhóm defect Web đã ghi ở HW02.** Cả ba browser đều gặp lỗi click thêm đầu không có tác dụng, thiếu minh họa giỏ rỗng, sai cột đơn giá và thiếu nút `+`/`−`, sai nhãn tổng tiền, và xóa ngay khi bấm. T08 xác minh giỏ giữ nguyên khi thiếu nút chỉnh. Phép tính lại tiền sau khi đổi số lượng chưa thể thực thi. [Mapping, expected, actual và ảnh evidence](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr07/phase-3/README.md)
+
+HW04 hiện có **41 ca duy nhất và 9 lượt chạy feature × browser**, đạt ngưỡng 36 ca và 9 lượt chạy. Mình đã cập nhật [báo cáo chính](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/Report.md), [AI Audit](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/ai/AI_Audit_Report.md) và [Prompt Log](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/ai/PromptLog.md). Phase 3 đang chờ bạn review. Toàn bộ thay đổi ở local, chưa commit, push hay đăng GitHub Issue.
+```
+
+Phạm vi: Chạy bổ sung FR-07 sau hai click
 
 <a id="msg-ce5b362f038f65caf942"></a>
 
@@ -922,4 +950,94 @@ Chromium đã xác nhận lỗi gộp dòng ở W04 và W07. W04 có hai dòng i
 
 ```text
 Mình sẽ dùng `course-ai-log` để ghi lượt bổ sung này và lần sửa bước chờ render vào hồ sơ Phase 3.
+```
+
+<a id="msg-da446d35497aa99822bf"></a>
+
+#### Phản hồi 5 — 15:06:06 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đã bổ sung bộ chẩn đoán T07 bằng **hai lần bấm liên tiếp trên cùng trang chi tiết**. Chromium, Firefox và WebKit đều cho cùng kết quả, tổng cộng **9 pass, 6 fail, 0 skipped** trên 15 lượt thực thi.
+
+- **W02, W03, W34 pass sau workaround.** Sản phẩm vào giỏ đúng số lượng, thành tiền và tổng tiền.
+- **W04, W07 fail vì Web không gộp dòng khi thêm trùng.** W04 hiển thị hai dòng iPhone, lần lượt 2 và 3 chiếc, thay vì một dòng 5 chiếc. Tổng tiền vẫn đúng 150 triệu ₫.
+
+Lượt chẩn đoán đầu đọc giỏ trước khi React render xong. Mình đã sửa bước chờ, giữ report đầu và xác minh lại trên cả ba browser. **Verdict của bộ một click vẫn giữ nguyên.** Báo cáo hiện ghi **9 lượt chính + 3 lượt chẩn đoán**, với **41 ID ca duy nhất**. [HTML report và ảnh evidence](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/reports/fr07/phase-3/README.md#chẩn-đoán-sau-hai-click)
+
+Phase 3 vẫn ở local, chưa commit hay push.
+```
+
+Phạm vi: Đối chiếu và chuẩn bị bộ nộp HW04
+
+<a id="msg-9af7852ed52cef76c2ae"></a>
+
+## P-018
+
+- Timestamp: 17:05:49 13/11/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+làm phase cuối: **4. Bộ nộp**Đối chiếu báo cáo, hoàn thiện Agent Skill, quay demo và đóng ZIP.Kiểm 9 HTML report theo feature × browser, link video, hồ sơ AI, PDF và Git log.  
+```
+
+<a id="msg-017954624fe8121d7bd4"></a>
+
+### Output
+
+#### Phản hồi 1 — 17:05:55 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng skill `hw04-automation-testing` để đối chiếu bộ nộp với đề, kiểm report và Git log, rồi hoàn thiện Agent Skill, PDF và ZIP. Phần demo cần giọng và minh chứng tác giả của bạn, nên mình sẽ chuẩn bị kịch bản và kiểm link video bạn cung cấp.
+```
+
+<a id="msg-63dbb21480188ab55b72"></a>
+
+#### Phản hồi 2 — 17:06:11 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng `pdf` để render và kiểm ba PDF, cùng `course-ai-log` để rà soát hồ sơ AI theo nguồn thực tế. Mình sẽ kiểm bộ kỹ thuật và chuẩn bị bản ZIP để bạn xem trong lúc chờ link demo và điểm tự chấm.
+```
+
+<a id="msg-9105258d386fcd019b8d"></a>
+
+#### Phản hồi 3 — 17:08:18 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình đã mở và đối chiếu đủ 9 HTML report chính cùng 3 report chẩn đoán. Các report khớp ID ca, browser, số liệu, MSSV và timestamp. Git log có 11 commit thay đổi file test script, vượt mức tối thiểu 8. Kịch bản demo dùng FR-02 vì feature này có đủ ba browser và có bản sửa W12 do bạn thực hiện.
+```
+
+<a id="msg-d08a0197524f2b9fd154"></a>
+
+#### Phản hồi 4 — 17:11:27 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Script diễn tập demo FR-02 đã chạy đủ ba browser, mỗi browser ghi 8 pass và 6 fail như report chính. Khi giải nén bản ZIP thử, mình phát hiện link SRS của Phase 2 trỏ ra ngoài gói. Mình đã đổi sang link cố định của baseline và đang kiểm lại bản ZIP.
+```
+
+<a id="msg-d72c65712867ac260bd2"></a>
+
+#### Phản hồi 5 — 17:12:16 13/11/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đã chuẩn bị [ZIP bản xem trước](D:/Workspace/SoftwareTesting/HW04/23120410_HW04_AI_Automation_DRAFT.zip) và giải nén kiểm tra đủ 409 file. Bản này đã có Agent Skill, Git log, báo cáo chính, AI Audit kèm Prompt Log và bản nháp AI Critique 242 từ. Ba PDF đã được render và kiểm bố cục.
+
+Mình đã mở đủ **9 HTML report chính và 3 report chẩn đoán**, đối chiếu ID ca, kết quả, MSSV và timestamp. Git log có **11 commit thay đổi test script**, vượt mức tối thiểu 8. Cả 11 GitHub Issue đều có ảnh lỗi đính kèm.
+
+Phần quay đã có [kịch bản tiếng Việt](D:/Workspace/SoftwareTesting/HW04/Demo-HW04.md) và [script demo FR-02](D:/Workspace/SoftwareTesting/HW04/Demo-FR02.ps1). Script đã chạy diễn tập đủ ba browser. Kịch bản dùng cùng một video cho Task 2 và Agent Skill, với phần giải thích bản sửa W12 do bạn thực hiện.
+
+**Để chốt ZIP nộp**, bạn cần quay và gửi link YouTube unlisted, gửi điểm tự chấm theo từng mục trong rubric, và duyệt [AI Critique](D:/Workspace/SoftwareTesting/HW04/eshop-sut-HW04/hw04/ai/AI_Critique.md). Mình sẽ kiểm link, điền bảng điểm và xuất lại ZIP theo tên đề yêu cầu. Các thay đổi Phase 4 hiện ở local.
 ```

@@ -14,7 +14,13 @@ Bài kiểm thử gồm ba feature web từ HW02. Expected result được đố
 
 ## 2. Thiết kế và triển khai automation
 
-<!-- Ghi commit SUT, môi trường, runner và cách chạy. Dẫn script và file CSV/JSON dưới automation/. Giải thích cách ánh xạ ID ca HW02, thiết lập tiền điều kiện và các assertion pattern đã dùng. -->
+Suite dùng Playwright Test 1.65.0 và SUT tại `85af3ba`. Dữ liệu JSON giữ ID ca HW02. Mỗi lần chạy xác minh fixture trước thao tác và lưu report riêng theo browser.
+
+| Feature | Các assertion pattern dùng trong suite |
+| --- | --- |
+| FR-02 | `toHaveURL` kiểm điều hướng, `toHaveAttribute` kiểm input, `toEqual` kiểm counter/deadline và `toHaveValue` kiểm email hồ sơ. |
+| FR-07 | `toHaveCount` kiểm số dòng, `toBeVisible` kiểm control/empty state và `toBe` kiểm quantity, thành tiền, tổng. |
+| FR-14 | `toBeVisible` kiểm màn hình quản lý, `toHaveCount` kiểm số dòng và `toEqual` đối chiếu tập ID/tên. |
 
 ### FR-02 — Đăng nhập và khóa tài khoản
 
@@ -83,6 +89,22 @@ T03 xóa theo đúng ID của danh mục giữa trong fixture ba dòng hoặc da
 
 ## 4. Kết quả thực thi trên nhiều browser
 
+| Feature | Browser | Pass | Fail | Skipped | HTML report chính |
+| --- | --- | ---: | ---: | ---: | --- |
+| FR-02 | Chromium | 8 | 6 | 0 | [Report](reports/fr02/phase-2/final/chromium/20261112T1100310960125Z/index.html) |
+| FR-02 | Firefox | 8 | 6 | 0 | [Report](reports/fr02/phase-2/final/firefox/20261112T1100589230198Z/index.html) |
+| FR-02 | WebKit | 8 | 6 | 0 | [Report](reports/fr02/phase-2/final/webkit/20261112T1102142641785Z/index.html) |
+| FR-07 | Chromium | 0 | 15 | 0 | [Report](reports/fr07/phase-3/final/chromium/20261113T0742417675299Z/index.html) |
+| FR-07 | Firefox | 0 | 15 | 0 | [Report](reports/fr07/phase-3/final/firefox/20261113T0743353230947Z/index.html) |
+| FR-07 | WebKit | 0 | 15 | 0 | [Report](reports/fr07/phase-3/final/webkit/20261113T0745314331071Z/index.html) |
+| FR-14 | Chromium | 10 | 2 | 0 | [Report](reports/fr14/phase-1/chromium/20261112T0817472147505Z/index.html) |
+| FR-14 | Firefox | 10 | 2 | 0 | [Report](reports/fr14/phase-1/firefox/20261112T0817575329174Z/index.html) |
+| FR-14 | WebKit | 10 | 2 | 0 | [Report](reports/fr14/phase-1/webkit/20261112T0818434836706Z/index.html) |
+| **Tổng** | **9 lượt** | **54** | **69** | **0** | **41 ID ca duy nhất** |
+
+Ba report chẩn đoán FR-07 bổ sung 15 lượt trên 5 ID đã có, với 9 Pass và 6 Fail. Tổng chính và chẩn đoán là 138 lượt, 63 Pass và 75 Fail. Các report pilot, lượt lỗi harness và demo được giữ theo từng attempt và nằm ngoài số liệu chính.
+
+
 ### Phase 1 — FR-14
 
 | Browser | ISO timestamp | T01 pass/fail | T02 pass/fail | T03 pass/fail | HTML report |
@@ -104,8 +126,6 @@ Lượt chạy tích hợp đầu ghi nhận lỗi thiếu import ở hai ca T01
 | FR-14 T01 | WebKit | 2026-11-12T08:01:43.1664819Z | 5 | 1 | [HTML report](reports/fr14/t01/webkit/20261112T0801431664819Z/index.html) |
 
 T01 phát hiện đủ sáu ID trên mỗi project. Kết quả nghiệm thu kỹ thuật gồm 18 lượt thực thi, 15 pass và 3 fail cùng một defect CAT-TC33. Các lượt đầu được giữ để truy vết assertion HTTP đã sửa. [Chromium lần đầu](reports/fr14/t01/chromium/20261112T0800106785100Z/index.html) · [Firefox lần đầu](reports/fr14/t01/firefox/20261112T0800164680708Z/index.html) · [WebKit lần đầu](reports/fr14/t01/webkit/20261112T0800445354808Z/index.html)
-
-<!-- Dẫn HTML report thật trong reports/. Mỗi lượt chạy có Run by: 23120410 và ISO timestamp. Ghi rõ lỗi môi trường hoặc ca bị chặn nếu có. -->
 
 ### Phase 2 — FR-02
 
@@ -169,4 +189,13 @@ Lượt chẩn đoán sau hai click kiểm được lỗi gộp dòng Web ở W0
 
 - [AI Audit Report và khai báo sử dụng AI](ai/AI_Audit_Report.md)
 - [AI Critique](ai/AI_Critique.md)
-- [Video demo](README.md#video-demo)
+- [Video Task 2](https://youtu.be/vJUG_TZbxtU), dài 9 phút 21 giây, trình bày FR-02, bản sửa W12 và kết quả thực thi đa browser.
+- [Video Agent Skill](https://youtu.be/-OzCOso_a1M), dài 5 phút 6 giây, trình bày skill, reference, script kiểm discovery và kết quả kiểm chứng feature FR-02.
+- [Agent Skill và workflow](skills/web-automation-testing/SKILL.md)
+- Git commit log trong ZIP, file GitCommitLog.txt ghi 11 commit có thay đổi file `.spec.mjs`.
+
+Video Agent Skill được tự chấm 9/10 do mic chất lượng thấp gây nhiều tiếng ồn và lỗi âm thanh. Hướng cải thiện cho lần sau là mua mic tốt hơn để lời thuyết minh rõ và ổn định.
+
+## 7. Kết luận
+
+Ba feature đã được chuyển thành 41 ca Web data-driven và thực thi trên Chromium, Firefox, WebKit. Chín report chính ghi 54 Pass và 69 Fail trên 123 lượt. Các assertion fail tái hiện 11 nhóm defect, tính cả lỗi gộp dòng được xác nhận trong lượt chẩn đoán FR-07. Mỗi nhóm có GitHub Issue, ảnh lỗi SUT và ảnh trang Issue. Báo cáo ghi cụ thể bước dừng do lỗi SUT và giới hạn coverage phía sau để kết quả có thể đối chiếu với expected. Kết quả review, bản sửa sinh viên và cách dùng Agent Skill được trình bày trong hai video và hồ sơ AI.

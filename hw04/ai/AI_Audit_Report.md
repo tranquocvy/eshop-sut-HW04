@@ -6,12 +6,16 @@
 | MSSV | 23120410 |
 | Lớp / Khóa | 23_3 |
 | Bài tập | HW04-AI |
-| Ngày làm bài | 12/11/2026 (các lượt trong phạm vi audit này) |
+| Ngày làm bài | 12–18/11/2026 |
 | Công cụ đã dùng | OpenAI Codex |
 
 ## 1. Khai báo sử dụng AI
 
 > I use AI tools for the following tasks
+
+Script được thực thi bằng Playwright Test 1.65.0 trên Chromium, Firefox và WebKit. Bằng chứng HTML do Playwright HTML reporter sinh từ các lượt chạy thật.
+
+G9.2 được thể hiện qua chuyển ca HW02 thành automation. G9.3 thể hiện qua phân tích lỗi script và sai lệch SUT. G9.4 thể hiện qua sinh viên review, sửa W12 và phối hợp với Codex kiểm chứng lại.
 
 | Công cụ | Công việc hoặc giai đoạn có AI hỗ trợ | Phần sinh viên rà soát, chỉnh sửa hoặc xác minh |
 | --- | --- | --- |
@@ -19,22 +23,22 @@
 | OpenAI Codex | Chuyển sáu ca FR-14 T01 sang Playwright Test, chạy trên ba browser, sửa assertion sau lượt đầu và tổng hợp bằng chứng. | Sinh viên xác nhận đã review và chốt T01. [Xác nhận nghiệm thu](PromptLog.md#p-008). |
 | OpenAI Codex | Tự động hóa T02–T03 từ bộ ca HW02, tách helper dùng chung, chạy tích hợp Phase 1 và tổng hợp HTML report. | Sinh viên xem report Phase 1, đối chiếu với phạm vi HW02 và xác nhận thấy kết quả ổn. [Phản hồi về report](PromptLog.md#p-013). |
 | OpenAI Codex | Chuyển 14 ca Web FR-02 từ HW02 sang Playwright Test, chạy lần đầu, sửa script sau review, chạy pilot và đối chiếu ba browser. | Sinh viên review script và trực tiếp thêm kiểm trạng thái ở W04/W18, đổi W12 từ skip sang fail và giữ screenshot. Các chỉnh sửa nằm trong commit `c0cc5c9`. |
-| OpenAI Codex | Chuyển 15 ca Web FR-07 từ HW02, chạy pilot, sửa assertion và thu HTML report đa browser. | Chờ sinh viên rà soát Phase 3. |
-
-<!-- Điền theo công việc đã thực hiện. Dẫn mã prompt liên quan và nêu rõ phần sinh viên đã tự sửa. -->
+| OpenAI Codex | Chuyển 15 ca Web FR-07 từ HW02, chạy pilot, sửa assertion và thu HTML report đa browser. | Sinh viên đối chiếu lỗi click thêm, phân biệt lỗi Web với lỗi script và yêu cầu chạy chẩn đoán hai click. Codex kiểm lại report trên ba browser, ghi lỗi gộp dòng và đăng sáu Issue. |
+| OpenAI Codex | Rà soát bộ nộp, soạn AI Critique theo lần sửa W12 có bằng chứng, xuất PDF, chuẩn bị kịch bản demo và ZIP. [P-018](PromptLog.md#p-018) | Sinh viên tự quay hai demo và cung cấp URL Task 2 cùng Agent Skill. Codex đối chiếu rubric, tổng hợp điểm tự chấm và kiểm bộ nộp. |
 
 ## 2. Bảng Audit theo artifact
 
-Verdict đánh giá output ban đầu của từng artifact. Codex đề xuất các verdict dưới đây. Phạm vi sinh viên xác nhận được ghi theo từng artifact.
+Verdict đánh giá phiên bản AI ban đầu của từng artifact. Các hàng INCOMPLETE chỉ ra thiếu sót ở bản đầu, kèm thay đổi đã thực hiện và bằng chứng xác minh ở bản cuối. Phần sinh viên review hoặc sửa được ghi theo hoạt động thực tế.
 
 | (1) Prompt + Công cụ | (2) Output AI | (3) Verdict | (4) Lý do | (5) Bản SV sửa |
 | --- | --- | --- | --- | --- |
 | A-01 — Brainstorm phạm vi và kế hoạch HW04. OpenAI Codex, 12/11/2026. [P-000](PromptLog.md#p-000), [P-003](PromptLog.md#p-003), [P-004](PromptLog.md#p-004), [P-005](PromptLog.md#p-005). | Phương án dùng lại ca web HW02, chọn Playwright Test, triển khai FR-14 trước rồi FR-02 và FR-07. [Kế hoạch chia task](PromptLog.md#p-005). | **INCOMPLETE** | Phương án ban đầu bám §5–6 về phạm vi, dữ liệu và browser nhưng còn thiếu bước kiểm kê runner Playwright HW02 để xác định thao tác, assertion và fixture có thể dùng lại. Sinh viên nêu điểm này ở P-004. | Sinh viên nhắc kiểm tra runner HW02 và đề xuất nghiệm thu, ghi audit theo từng task. Codex cập nhật phương án từ các yêu cầu đó. |
 | A-02 — Agent Skill `web-automation-testing`. OpenAI Codex, 12/11/2026. [P-001](PromptLog.md#p-001), [P-002](PromptLog.md#p-002), [P-006](PromptLog.md#p-006). | [Bàn giao bản đầu](PromptLog.md#p-002) và [SKILL.md hiện hành](../skills/web-automation-testing/SKILL.md). | **INCOMPLETE** | §7 nêu cả sinh và bảo trì script data-driven trên nhiều browser. Bản đầu đề cập bảo trì trong một dòng. Bản chỉnh sửa bổ sung cách xác định phần bị ảnh hưởng, giữ ID ca, kiểm coverage và xác minh bằng lượt chạy mới. | Sinh viên yêu cầu đối chiếu đề gốc và hoàn thiện skill trước các task. Codex bổ sung đầu ra theo bước và quy trình bảo trì. |
 | A-03 — FR-14 T01. OpenAI Codex, 12/11/2026. [P-007](PromptLog.md#p-007), [P-008](PromptLog.md#p-008). | [Script T01](../automation/tests/fr14-t01.spec.mjs), [test data](../automation/data/fr14-t01.json) và [kết quả đa browser](../Report.md#4-kết-quả-thực-thi-trên-nhiều-browser). | **INCOMPLETE** | Bản chạy đầu coi phản hồi HTTP 304 sau reload là lỗi tải dữ liệu. Firefox và WebKit vì vậy dừng trước assertion UI của CAT-TC01–03. | Codex sửa assertion để xử lý revalidation rồi vẫn đối chiếu số dòng và từng cặp ID/tên trên UI. Sinh viên xác nhận đã review và chốt T01. |
-| A-04 — Bộ automation tích hợp FR-14 Phase 1. OpenAI Codex, 12/11/2026. [P-010](PromptLog.md#p-010), [P-013](PromptLog.md#p-013). | [Script T02](../automation/tests/fr14-t02.spec.mjs), [script T03](../automation/tests/fr14-t03.spec.mjs) và [kết quả lần chạy đầu và lần chạy lại](../Report.md#phase-1--fr-14). | **INCOMPLETE** | Bản tích hợp đầu phát hiện đủ 12 ID mỗi browser nhưng thiếu import `credentials` sau khi tách helper. CAT-TC14 và CAT-TC33 dừng do `ReferenceError` trước khi kiểm quyền. | Codex bổ sung export/import và chạy lại đủ 12 ca trên ba browser. Sinh viên đã xem và đồng ý với report. Chưa ghi nhận chỉnh sửa script do sinh viên thực hiện ở lượt này. |
+| A-04 — Bộ automation tích hợp FR-14 Phase 1. OpenAI Codex, 12/11/2026. [P-010](PromptLog.md#p-010), [P-013](PromptLog.md#p-013). | [Script T02](../automation/tests/fr14-t02.spec.mjs), [script T03](../automation/tests/fr14-t03.spec.mjs) và [kết quả lần chạy đầu và lần chạy lại](../Report.md#phase-1--fr-14). | **INCOMPLETE** | Bản tích hợp đầu phát hiện đủ 12 ID mỗi browser nhưng thiếu import `credentials` sau khi tách helper. CAT-TC14 và CAT-TC33 dừng do `ReferenceError` trước khi kiểm quyền. | Codex bổ sung export/import và chạy lại đủ 12 ca trên ba browser. Sinh viên xem và đồng ý với report. |
 | A-05 — FR-02 Phase 2. OpenAI Codex, 12/11/2026. [P-014](PromptLog.md#p-014), [P-015](PromptLog.md#p-015). | 14 ca Web data-driven. Bản AI gốc ở commit `8f1a6d0`. [Report và mapping](../reports/fr02/phase-2/README.md). | **INCOMPLETE** | Locator dựa vào `type=password` làm 42 lượt đầu dừng trước khi gửi request. W12 gọi `test.skip()` khi chuỗi thao tác thật tạo sai trạng thái theo FR-02. | Sinh viên sửa W12 thành fail có screenshot, bổ sung assertion W04 và W18 trong `c0cc5c9`. Codex sửa locator theo vùng nhãn và xác minh bằng pilot rồi chạy đủ ba browser. |
 | A-06 — FR-07 Phase 3. OpenAI Codex, 13/11/2026. [P-016](PromptLog.md#p-016). | 15 ca Web data-driven cho T07–T09. [Mapping, pilot và HTML report](../reports/fr07/phase-3/README.md). | **INCOMPLETE** | Pilot W19 ghi nhận số dòng sai trước khi chạy assertion xác nhận xóa. T08 dừng ngay ở control bị thiếu. W23 đọc thuộc tính nội bộ của Playwright để lấy baseURL. | Codex sửa thứ tự assertion, kiểm giỏ không đổi khi thiếu control, dùng origin từ URL trang và bổ sung ảnh đúng thời điểm quan sát. |
+| A-07 — Script điều phối demo và bộ nộp. OpenAI Codex, 13–18/11/2026. [P-018](PromptLog.md#p-018). | Script demo FR-02, bộ PDF, hai video và ZIP. | **INCOMPLETE** | Bản điều phối đầu ghép JSON thành các object bọc value trên Windows PowerShell, làm validator không thấy ID. Bản PDF/ZIP đầu còn thiếu URL video và bảng điểm. | Sinh viên báo lỗi runner và cung cấp hai video. Codex ghép lại 14 object với UTF-8, kiểm đủ ba browser, bổ sung URL và điểm tự chấm, render PDF và giải nén ZIP để kiểm. |
 
 ### A-01 — Brainstorm phạm vi và kế hoạch
 
@@ -42,7 +46,7 @@ AI đề xuất một skill dùng chung và FR-14 làm feature đầu tiên. Sau
 
 ### A-02 — Xây Agent Skill cho automation
 
-Bản đầu mô tả cách chọn ca, lưu CSV/JSON, tạo và review test, chạy trên ba browser và lưu HTML report. Phần bảo trì ban đầu nằm trong một dòng ở mục thực thi. Sau khi đối chiếu §7, AI tách phần này thành quy trình xác định nguyên nhân, giữ ID ca, cập nhật dữ liệu hoặc script và chạy lại phạm vi bị ảnh hưởng. AI cũng bổ sung bước đối chiếu ID ca với test runner phát hiện và kiểm coverage theo browser. Phiên này đã kiểm cấu trúc file. Bằng chứng workflow và video demo sẽ lấy từ lượt chạy FR-14. [Đối chiếu bản hoàn thiện](PromptLog.md#p-006).
+Bản đầu mô tả cách chọn ca, lưu CSV/JSON, tạo và review test, chạy trên ba browser và lưu HTML report. Phần bảo trì ban đầu nằm trong một dòng ở mục thực thi. Sau khi đối chiếu §7, AI tách phần này thành quy trình xác định nguyên nhân, giữ ID ca, cập nhật dữ liệu hoặc script và chạy lại phạm vi bị ảnh hưởng. AI cũng bổ sung bước đối chiếu ID ca với test runner phát hiện và kiểm coverage theo browser. Workflow đã áp dụng cho FR-14, FR-02 và FR-07. Video Agent Skill trình bày cấu trúc skill, reference và script kiểm discovery, sau đó kiểm chứng lại toàn feature FR-02. [Demo Agent Skill](https://youtu.be/-OzCOso_a1M). [Đối chiếu bản hoàn thiện](PromptLog.md#p-006).
 
 ### A-03 — FR-14 T01
 
@@ -66,19 +70,28 @@ Lượt bổ sung T07 dùng hai click để kiểm những hành vi bị che khu
 
 ## 3. Tổng kết độ chính xác AI
 
-| Chỉ số theo verdict đề xuất | Số lượng | Tỉ lệ |
+| Chỉ số theo verdict bản đầu | Số lượng | Tỉ lệ |
 | --- | ---: | ---: |
-| Tổng artifact có verdict đề xuất | 6 | 100% |
+| Tổng artifact được đánh giá | 7 | 100% |
 | VALID | 0 | 0% |
 | INVALID | 0 | 0% |
-| INCOMPLETE | 6 | 100% |
+| INCOMPLETE | 7 | 100% |
 
 ## 4. Kết luận
 
-<!-- Tóm tắt phần AI hỗ trợ được, vấn đề quan sát được và cách kiểm chứng. -->
+Codex hỗ trợ chọn ca nguồn, sinh script data-driven và chuẩn bị report đa browser. Các lượt đầu phát hiện giả định sai về DOM, xử lý HTTP 304 và cách phân loại lỗi ở giữa một chuỗi thao tác. Khi review W12, sinh viên thay skip bằng fail kèm ảnh. Các lượt chạy sau xác minh riêng các thay đổi kỹ thuật và các defect vẫn tái hiện. Các verdict trong bảng đánh giá bản AI ban đầu. Báo cáo chính và Prompt Log ghi phần sửa, người thực hiện và bằng chứng theo từng lượt.
 
 ## Phụ lục A — Prompt Log
 
 [Nhật ký tương tác AI](PromptLog.md).
 
-<!-- Khi xuất PDF của Audit, đưa nội dung Prompt Log vào phụ lục để từng lượt có đủ công cụ, ngày giờ, prompt và output. -->
+
+## Phụ lục B — Minh chứng demo và hoàn thiện bộ nộp
+
+Sinh viên cung cấp hai video riêng ở chế độ Unlisted. [Task 2](https://youtu.be/vJUG_TZbxtU) trình bày bản sửa W12 và HTML report đa browser. [Agent Skill](https://youtu.be/-OzCOso_a1M) minh họa sử dụng skill cho FR-02 với 14 ca. Phần lời thoại và kịch bản được Codex hỗ trợ chuẩn bị, sinh viên thực hiện quay.
+
+Script điều phối demo ban đầu ghép các mảng JSON theo cách tạo trường value khi chạy Windows PowerShell. Sinh viên báo lỗi kiểm ID. Codex chuyển sang đọc UTF-8 và duyệt từng object để ghép đủ 14 ca, rồi kiểm lại trên Windows PowerShell. Lượt chạy lại hoàn tất cả ba browser với 8 Pass, 6 Fail mỗi browser. Hai video và kết quả kiểm bộ nộp được dẫn tại [README](../README.md).
+
+[Prompt Log](PromptLog.md) đính kèm lưu các tương tác được sinh viên giữ trong bản nộp.
+
+Sinh viên tự trừ 1 điểm ở demo Agent Skill vì mic gây nhiều tiếng ồn và lỗi âm thanh. Hướng cải thiện được ghi trong bảng tự chấm là mua mic tốt hơn cho lần quay sau. Điểm tự chấm toàn bài là 99/100.

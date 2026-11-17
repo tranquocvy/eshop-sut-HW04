@@ -20,6 +20,12 @@ Khi tách helper dùng chung, chạy lại cả các spec đã có để kiểm 
 
 Khi thuộc tính HTML là đối tượng kiểm thử, định vị control theo nhãn hoặc vùng chứa xác minh được trong DOM, rồi assert thuộc tính riêng. Ví dụ, kiểm `type=email` sau khi định vị ô email. Trong một chuỗi thao tác thật, nếu SUT tạo trạng thái sai trước bước cuối, ghi assertion fail với trạng thái quan sát được và bước chưa thực hiện. Dùng Blocked khi môi trường hoặc dữ liệu setup khiến ca chưa thể bắt đầu kiểm nghiệp vụ.
 
+Khi một defect ngăn kiểm hành vi phía sau, giữ report chính và mở lượt chẩn đoán riêng. Ghi thao tác workaround, điều kiện áp dụng và assertion còn đánh giá được. Với FR-07, lượt chính kiểm thêm bằng một click. Lượt chẩn đoán dùng hai click để kiểm gộp dòng và tổng, đợi dòng sản phẩm render rồi mới đọc các ô. Giữ verdict theo lượt và đếm ID duy nhất một lần. [Ví dụ FR-07](../../../reports/fr07/phase-3/README.md#chẩn-đoán-sau-hai-click)
+
+## Tương thích PowerShell khi ghép JSON
+
+Với Windows PowerShell, đọc mỗi file bằng Get-Content -Raw -Encoding UTF8, chuyển JSON rồi duyệt từng object để ghép thành mảng phẳng. Kiểm mỗi phần tử có ID trước discovery. Khi chạy script trong PowerShell, dùng đường dẫn trực tiếp như .\Demo-FR02.ps1. Lệnh pwsh cần PowerShell 7 có trong PATH.
+
 ## Chạy và tạo HTML report
 
 Chạy một cặp feature và browser mỗi lượt khi rubric cần report riêng. Chọn thư mục report mới và tạo timestamp tại thời điểm bắt đầu chạy. Ví dụ PowerShell cho một project đã có trong config.
